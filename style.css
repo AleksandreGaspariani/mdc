@@ -6,6 +6,10 @@
     margin: 0px;
 }
 
+body{ 
+    font-family: 'VT323', monospace;
+}
+
 ul {
     list-style-type: none;
 }
