@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@100&family=VT323&display=swap');
+
+*{ 
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
+
+#aside-list {
+    font-size: 24px;
+    font-family: 'VT323', monospace;
+}
+
+#aside-list li {
+    cursor: pointer;
+}
+
+#content {
+    /* background: url('https://static.wixstatic.com/media/8314b1_76b513a8ad3c4ce7adb681a5b2b3204f~mv2.png/v1/fill/w_640,h_396,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/8314b1_76b513a8ad3c4ce7adb681a5b2b3204f~mv2.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: sepia(10%) saturate(100%) brightness(110%) hue-rotate(330deg); */
+}
+
+input {
+    outline: none;
+    font-family: 'VT323', monospace;
+}
+
+#find_player_button {
+    cursor: pointer;
+}
+
+.c_scroll {
+    overflow-y: auto;
+}
+
+.c_scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.c_scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(105, 105, 105, 0.3);
+}
+
+.c_scroll::-webkit-scrollbar-thumb {
+    background-color: rgb(33, 0, 218);
+    outline: 1px solid rgba(12, 96, 180, 0.521);
+}
