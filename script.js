@@ -1,10 +1,23 @@
+let userInfo = [];
+let vehicleInfo = [];
+let propertyInfo = [];
+let callsInfo= [];
+let employeeInfo = [];
+let casesInfo = [];
+let motdInfo = [];
+
 
 $(document).ready(()=> {
     prepareForWork();
+    
+})
+
+$(document).on('change',()=>{
+
 })
 
 function init(){
-    localStorage.setItem('used','1');
+
     localStorage.setItem('state','default');
     localStorage.setItem('username','');
     localStorage.setItem('vehiclePN','');
@@ -29,10 +42,70 @@ function prepareForWork() {
 
 let vehicle = '';
 
+let data = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":[],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
+// localStorage.removeItem('userInfo');
+// localStorage.setItem('userInfo', JSON.stringify(data));
+
+function onRecievePlayerData(data){
+
+    userInfo = [];
+    let jsonData = JSON.parse(data);    
+    userInfo = jsonData;
+
+    // insert information into fields.
+    $('#playerFullName').empty().append(`<p>`+userInfo.FullName+`</p>`);
+    $('#playerAge').empty().append(userInfo.Age);
+    $('#playerGender').empty().append(userInfo.Sex);
+    // $('#playerAvatar').empty();
+    $('#playerPhoneNumber').empty().append(userInfo.PhoneNumber);
+    userInfo.IsWanted ? $('#playerWanted').empty().append('იძებნება') && $('#playerWantedText').empty().append(userInfo.WantedText) : '';
+
+}
+
+function onRecievePVehicleData(data){
+    vehicleInfo = [];
+    let jsonData = JSON.parse(data);    
+    vehicleInfo = jsonData;
+}
+
+function onRecievePropertyData(data){
+    propertyInfo = [];
+    let jsonData = JSON.parse(data);    
+    propertyInfo = jsonData;
+}
+
+function onRecieveCallsData(data){
+    callsInfo = [];
+    let jsonData = JSON.parse(data);    
+    callsInfo = jsonData;
+}
+
+function onRecieveEmployeeData(data){
+    employeeInfo = [];
+    let jsonData = JSON.parse(data);    
+    employeeInfo = jsonData;
+}
+
+function onRecieveCasesData(data){
+    casesInfo = [];
+    let jsonData = JSON.parse(data);    
+    casesInfo = jsonData;
+}
+
+function onRecieveMotdData(data){
+    motdInfo = [];
+    let jsonData = JSON.parse(data);    
+    motdInfo = jsonData;
+}
+
+
 function handlePlayerInput() {
     let user = $('#player_input').val();
     localStorage.setItem('username',user);
     load();
+    onRecievePlayerData(data);
+
+    console.log(userInfo);
 }
 
 function handleVehicleInput() {
@@ -54,12 +127,16 @@ function home() {
     load();
 }
 
+// BUG: it needs two click for writing data
+// TODO: retrieve datas and keep it untill player click on go back. before that player will be restricted to insert another name or car plate or anything else.
+
 function handle(param) {
     localStorage.setItem('state',param);
     let state = localStorage.getItem('state');
     switch (state) {
         case 'vehicle':
             let vehicle = localStorage.getItem('vehiclePN');
+
             if (vehicle == '') {
                 $('#content').empty().append(`
                 <div class='d-flex align-items-center justify-content-center m-5' style='gap: 5px;'>
@@ -146,9 +223,16 @@ function handle(param) {
                 `)
             }
         break;  
+        case 'vehicle':
+            $('#content').empty().append(`
+                <div class='border bg-dark w-50 h-25'> 
+                    <h1 class='display1'>Not ready yet.</h1>
+                </div>
+            `);
+        break;  
         case 'player':
-            let user = localStorage.getItem('username');
-            if (user == '') {
+
+            if (localStorage.getItem('username') === null || localStorage.getItem('username') === undefined) {
                 $('#content').empty().append(`
                 <div class='d-flex align-items-center justify-content-center m-5' style='gap: 5px;'>
                 <label for=''>Find Player</label>
@@ -158,44 +242,53 @@ function handle(param) {
                     </span>
                 </div> 
                 `)
-            }else {
+            }else { 
+
                 $('#content').empty().append(`
 
                 <div class='d-flex justify-content-start align-items-start'>
                     <div>
-                        <p class='d-flex justify-content-center align-items-center text-danger' onclick='goToMain()' style='cursor: pointer'>
+                        <p class='d-flex justify-content-start align-items-start text-danger' onclick='goToMain()' style='cursor: pointer'>
                             Go Back
                             <span class='material-symbols-outlined text-danger'>
                                 reply
                             </span>
                         </p>
-                        <img src='https://p1.hiclipart.com/preview/323/743/633/icon-person-icon-design-symbol-avatar-silhouette-character-cartoon-head-png-clipart.jpg' alt='' width='120px' height='auto'>
+                        <div class='d-flex align-items-center justify-content-center m-5' style='gap: 5px;'>
+                            <label for=''>Find Player</label>
+                            <input type='text' placeholder='Type Name' class='form-input' id='player_input'>
+                            <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
+                                chevron_right
+                            </span>
+                        </div> 
+                        <div class='d-flex flex-column justify-content-start align-items-start'>   
+                            <p id='playerWanted' class='m-0 p-0 text-danger'></p>
+                            <small id='playerWantedText' class='m-0 p-0 text-danger playerWantedText'></small>
+                            <img src='https://p1.hiclipart.com/preview/323/743/633/icon-person-icon-design-symbol-avatar-silhouette-character-cartoon-head-png-clipart.jpg' alt='' width='120px' height='auto' id='playerProfileImg'></img>
+                        </div>
                         <div class='d-flex flex-column ms-2'>
-                        <p style='font-family: VT323, monospace;'>`+localStorage.getItem('username')+`</p>
-                            <div class='d-flex justify-content-center align-items-center'>
+                            <p style='font-family: VT323, monospace;' id='playerFullName'></p>
+                            <div class='d-flex justify-content-start align-items-start'>
                                 <p style='font-family: VT323, monospace;' class='p-0 m-0'>Age: </p>
-                                <span class='p-0 m-0'>24</span>
+                                <span class='p-0 m-0' id='playerAge'></span>
                             </div>
+                            <p style='font-family: VT323, monospace;' id='playerGender'></p>
+                            <p style='font-family: VT323, monospace;' id='playerPhoneNumber'></p>
+                            <p style='font-family: VT323, monospace;' id='playerBornDate'></p>
                         </div>
                     </div>
-                    <div class='d-flex align-items-center justify-content-center m-5' style='gap: 5px;'>
-                        <label for=''>Find Player</label>
-                        <input type='text' placeholder='Type Name' class='form-input' id='player_input'>
-                        <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
-                            chevron_right
-                        </span>
-                    </div> 
+                    
                 </div>
                    
                 <hr>
-                <div class='d-flex w-100'>
+                <div class='d-flex w-100 position-relative'>
 
                     <div class='d-flex flex-column w-50'>
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Licenses: </h4>
                             <div style='overflow-y: scroll; max-height: 70px;' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: circle;'>
+                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: circle;' id='playerLicenses'>
                                     <li>Driving: V</li>
                                     <li>Flying: X</li>
                                     <li>Fishing: X</li>
@@ -208,27 +301,21 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Records: </h4>
                             <div style='max-height: 70px;' id='records-out-div' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;'>
+                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerRecords'>
                                     <li>No active records</li>
                                     <li>No active records</li>
                                     <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
+                            <h4 class='mb-3'>Tickets: </h4>
+                            <div style='max-height: 70px;' id='records-out-div' class='c_scroll'>
+                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerTickets'>
+                                    <li>No tickets</li>
+                                    <li>No tickets</li>
+                                    <li>No tickets</li>
                                 </ul>
                             </div>
                         </div>
@@ -240,7 +327,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Propertys: </h4>
                             <div style='overflow-y: scroll; max-height: 70px;' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;'>
+                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerProperties'>
                                     <li>Santa Maria 1032</li>
                                     <li>Vespuci 1131</li>
                                     <li>Vinewood 1562</li>
@@ -249,12 +336,21 @@ function handle(param) {
                         </div>
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                        <h4 class='mb-3'>Vehicles: </h4>
+                            <h4 class='mb-3'>Vehicles: </h4>
                             <div style='overflow-y: scroll; max-height: 70px;' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;'>
+                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerVehicles'>
                                     <li>Zenterno | PN: 15vh132</li>
                                     <li>Elegy | PN: 15vh132</li>
                                     <li>Rhinehart | PN: 15vh132</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
+                            <h4 class='mb-3'>Notes: </h4>
+                            <div style='overflow-y: scroll; max-height: 70px;' class='c_scroll'>
+                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerNotes'>
+                                    <li>ტესტ</li>
                                 </ul>
                             </div>
                         </div>
@@ -277,5 +373,3 @@ function handle(param) {
         }
     
     };
-
-   
