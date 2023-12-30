@@ -6,15 +6,17 @@ let employeeInfo = [];
 let casesInfo = [];
 let motdInfo = [];
 
+window.addEventListener('beforeunload', function(e){
+    init();
+})
 
 $(document).ready(()=> {
     prepareForWork();
-    
 })
 
-$(document).on('change',()=>{
+function closeMDC(){
 
-})
+}
 
 function init(){
 
@@ -26,6 +28,16 @@ function init(){
     localStorage.setItem('employees','');
     localStorage.setItem('cases','');
     localStorage.setItem('motd','');
+
+    // remove values
+
+    userInfo = [];
+    vehicleInfo = [];
+    propertyInfo = [];
+    callsInfo= [];
+    employeeInfo = [];
+    casesInfo = [];
+    motdInfo = [];
     
     // load content
     handle(localStorage.getItem('state'));
@@ -42,27 +54,66 @@ function prepareForWork() {
 
 let vehicle = '';
 
-let data = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":[],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
+let data = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":["#5 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#4 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#3 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#2 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#1 | Driving | Due date 1/1/0001 12:00:00 AM"],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
 // localStorage.removeItem('userInfo');
 // localStorage.setItem('userInfo', JSON.stringify(data));
+
+function handlePlayerInput() {
+    localStorage.setItem('state','player')
+    let user = $('#player_input').val();
+    localStorage.setItem('username',user);
+    onRecievePlayerData(data); // <- pass data here
+}
 
 function onRecievePlayerData(data){
 
     userInfo = [];
-    let jsonData = JSON.parse(data);    
-    userInfo = jsonData;
+    
+    if (data.length < 1) {
+        load();
+    }else{
+        let jsonData = JSON.parse(data);    
+        userInfo = jsonData;
+        load();
 
-    // insert information into fields.
-    $('#playerFullName').empty().append(`<p>`+userInfo.FullName+`</p>`);
-    $('#playerAge').empty().append(userInfo.Age);
-    $('#playerGender').empty().append(userInfo.Sex);
-    // $('#playerAvatar').empty();
-    $('#playerPhoneNumber').empty().append(userInfo.PhoneNumber);
-    userInfo.IsWanted ? $('#playerWanted').empty().append('იძებნება') && $('#playerWantedText').empty().append(userInfo.WantedText) : '';
+        // insert information into fields.
+        $('#playerFullName').empty().append(`<p>`+userInfo.FullName+`</p>`);
+        $('#playerAge').empty().append(userInfo.Age);
+        $('#playerGender').empty().append(userInfo.Sex);
+        userInfo.Avatar !== null ? $('#playerProfileImg').attr("src",userInfo.Avatar) : $('#playerProfileImg').attr("src", 'https://p1.hiclipart.com/preview/323/743/633/icon-person-icon-design-symbol-avatar-silhouette-character-cartoon-head-png-clipart.jpg');
+        $('#playerPhoneNumber').empty().append(userInfo.PhoneNumber);
+        userInfo.IsWanted ? $('#playerWanted').empty().append('იძებნება') && $('#playerWantedText').empty().append(userInfo.WantedText) : '';
+        let bornDatePrep = userInfo.BornDate.split('T');
+        let bornDate = bornDatePrep[0];
+        $('#playerBornDate').empty().append(bornDate);
 
+        userInfo.Licenses.forEach(element => {
+            $('#playerLicenses').append(`<li>`+element+`</li>`);
+        });
+
+        userInfo.Records.forEach(element => {
+            $('#playerRecords').append(`<li>`+element+`</li>`);
+        })
+
+        userInfo.Tickets.forEach(element => {
+            $('#playerTickets').append(`<li>`+element+`</li>`);
+        })
+
+        userInfo.Vehicles.forEach(element => {
+            $('#playerVehicles').append(`<li>`+element+`</li>`);
+        })
+
+        userInfo.Properties.forEach(element => {
+            $('#playerProperties').append(`<li>`+element+`</li>`);
+        })
+
+        userInfo.Notes.forEach(element => {
+            $('#playerNotes').append(`<li>`+element+`</li>`);
+        })
+    }
 }
 
-function onRecievePVehicleData(data){
+function onRecieveVehicleData(data){
     vehicleInfo = [];
     let jsonData = JSON.parse(data);    
     vehicleInfo = jsonData;
@@ -96,16 +147,6 @@ function onRecieveMotdData(data){
     motdInfo = [];
     let jsonData = JSON.parse(data);    
     motdInfo = jsonData;
-}
-
-
-function handlePlayerInput() {
-    let user = $('#player_input').val();
-    localStorage.setItem('username',user);
-    load();
-    onRecievePlayerData(data);
-
-    console.log(userInfo);
 }
 
 function handleVehicleInput() {
@@ -232,14 +273,17 @@ function handle(param) {
         break;  
         case 'player':
 
-            if (localStorage.getItem('username') === null || localStorage.getItem('username') === undefined) {
+            // if (localStorage.getItem('username') === null || localStorage.getItem('username') === undefined || localStorage.getItem('username') === '') {
+            if (userInfo.length < 1 || userInfo.FullName === null) {
                 $('#content').empty().append(`
-                <div class='d-flex align-items-center justify-content-center m-5' style='gap: 5px;'>
-                <label for=''>Find Player</label>
-                    <input type='text' placeholder='Type Name' class='form-input' id='player_input'>
-                    <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
-                        chevron_right
-                    </span>
+                <div class='d-flex flex-column align-items-center justify-content-center'>
+                    <div class='d-flex justify-content-center align-items-center m-5' style='gap: 5px;'> 
+                        <label for=''>Find Player</label>
+                        <input type='text' placeholder='Type Name' class='form-input' id='player_input'>
+                        <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
+                            chevron_right
+                        </span>
+                    </div>
                 </div> 
                 `)
             }else { 
@@ -272,9 +316,9 @@ function handle(param) {
                                 <p style='font-family: VT323, monospace;' class='p-0 m-0'>Age: </p>
                                 <span class='p-0 m-0' id='playerAge'></span>
                             </div>
-                            <p style='font-family: VT323, monospace;' id='playerGender'></p>
-                            <p style='font-family: VT323, monospace;' id='playerPhoneNumber'></p>
-                            <p style='font-family: VT323, monospace;' id='playerBornDate'></p>
+                            <p style='font-family: VT323, monospace;'>Sex: <span class='m-0 p-0' id='playerGender'></span></p>
+                            <p style='font-family: VT323, monospace;'>Phone: <span class='m-0 p-0' id='playerPhoneNumber'></span></p>
+                            <p style='font-family: VT323, monospace;'>Born At: <span class='m-0 p-0' id='playerBornDate'></span></p>
                         </div>
                     </div>
                     
@@ -287,35 +331,27 @@ function handle(param) {
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Licenses: </h4>
-                            <div style='overflow-y: scroll; max-height: 70px;' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: circle;' id='playerLicenses'>
-                                    <li>Driving: V</li>
-                                    <li>Flying: X</li>
-                                    <li>Fishing: X</li>
-                                    <li>Hunting: X</li>
-                                    <li>Firearm: X</li>
+                            <div style='max-height: 120px;' class='c_scroll'>
+                                <ul class='m-0 p-0 ms-3 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerLicenses'>
+                                    
                                 </ul>
                             </div>
                         </div>
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Records: </h4>
-                            <div style='max-height: 70px;' id='records-out-div' class='c_scroll'>
+                            <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
                                 <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerRecords'>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
-                                    <li>No active records</li>
+                                    
                                 </ul>
                             </div>
                         </div>
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Tickets: </h4>
-                            <div style='max-height: 70px;' id='records-out-div' class='c_scroll'>
+                            <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
                                 <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerTickets'>
-                                    <li>No tickets</li>
-                                    <li>No tickets</li>
-                                    <li>No tickets</li>
+                                    
                                 </ul>
                             </div>
                         </div>
@@ -326,31 +362,27 @@ function handle(param) {
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Propertys: </h4>
-                            <div style='overflow-y: scroll; max-height: 70px;' class='c_scroll'>
+                            <div style='max-height: 120px;' class='c_scroll'>
                                 <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerProperties'>
-                                    <li>Santa Maria 1032</li>
-                                    <li>Vespuci 1131</li>
-                                    <li>Vinewood 1562</li>
+                                    
                                 </ul>
                             </div>
                         </div>
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Vehicles: </h4>
-                            <div style='overflow-y: scroll; max-height: 70px;' class='c_scroll'>
+                            <div style='max-height: 120px;' class='c_scroll'>
                                 <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerVehicles'>
-                                    <li>Zenterno | PN: 15vh132</li>
-                                    <li>Elegy | PN: 15vh132</li>
-                                    <li>Rhinehart | PN: 15vh132</li>
+                                    
                                 </ul>
                             </div>
                         </div>
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Notes: </h4>
-                            <div style='overflow-y: scroll; max-height: 70px;' class='c_scroll'>
+                            <div style='max-height: 120px;' class='c_scroll'>
                                 <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerNotes'>
-                                    <li>ტესტ</li>
+
                                 </ul>
                             </div>
                         </div>
