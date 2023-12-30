@@ -126,7 +126,6 @@ function onRecieveVehicleData(data){
     }else{
         let jsonData = JSON.parse(data);    
         vehicleInfo = jsonData;
-        console.log(vehicleInfo);
         load();
 
         // insert Data.
@@ -349,14 +348,14 @@ function handle(param) {
                             <img src='https://p1.hiclipart.com/preview/323/743/633/icon-person-icon-design-symbol-avatar-silhouette-character-cartoon-head-png-clipart.jpg' alt='' width='120px' height='auto' id='playerProfileImg'></img>
                         </div>
                         <div class='d-flex flex-column ms-2'>
-                            <p style='font-family: VT323, monospace;' id='playerFullName'></p>
+                            <p style='font-family: VT323, monospace;' id='playerFullName' class='text-info'></p>
                             <div class='d-flex justify-content-start align-items-start'>
                                 <p style='font-family: VT323, monospace;' class='p-0 m-0'>Age: </p>
-                                <span class='p-0 m-0' id='playerAge'></span>
+                                <span class='p-0 m-0 text-info' id='playerAge'></span>
                             </div>
-                            <p style='font-family: VT323, monospace;'>Sex: <span class='m-0 p-0' id='playerGender'></span></p>
-                            <p style='font-family: VT323, monospace;'>Phone: <span class='m-0 p-0' id='playerPhoneNumber'></span></p>
-                            <p style='font-family: VT323, monospace;'>Born At: <span class='m-0 p-0' id='playerBornDate'></span></p>
+                            <p style='font-family: VT323, monospace;'>Sex: <span class='m-0 p-0 text-info' id='playerGender'></span></p>
+                            <p style='font-family: VT323, monospace;'>Phone: <span class='m-0 p-0 text-info' id='playerPhoneNumber'></span></p>
+                            <p style='font-family: VT323, monospace;'>Born At: <span class='m-0 p-0 text-info' id='playerBornDate'></span></p>
                         </div>
                     </div>
                     
@@ -370,7 +369,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Licenses: </h4>
                             <div style='max-height: 120px;' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-3 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerLicenses'>
+                                <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start text-info' style='width: 300px; list-style-type: none;' id='playerLicenses'>
                                     
                                 </ul>
                             </div>
@@ -379,7 +378,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Records: </h4>
                             <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerRecords'>
+                                <ul class='m-0 p-0 ms-2 d-flex flex-column text-info justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerRecords'>
                                     
                                 </ul>
                             </div>
@@ -388,7 +387,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Tickets: </h4>
                             <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerTickets'>
+                                <ul class='m-0 p-0 ms-2 d-flex flex-column text-info justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerTickets'>
                                     
                                 </ul>
                             </div>
@@ -401,7 +400,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Propertys: </h4>
                             <div style='max-height: 120px;' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerProperties'>
+                                <ul class='m-0 p-0 ms-2 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerProperties'>
                                     
                                 </ul>
                             </div>
@@ -410,7 +409,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Vehicles: </h4>
                             <div style='max-height: 120px;' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerVehicles'>
+                                <ul class='m-0 p-0 ms-4 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal;' id='playerVehicles'>
                                     
                                 </ul>
                             </div>
@@ -419,7 +418,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Notes: </h4>
                             <div style='max-height: 120px;' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='playerNotes'>
+                                <ul class='m-0 p-0 ms-2 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerNotes'>
 
                                 </ul>
                             </div>
