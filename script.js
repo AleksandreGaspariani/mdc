@@ -168,9 +168,6 @@ function home() {
     load();
 }
 
-// BUG: it needs two click for writing data
-// TODO: retrieve datas and keep it untill player click on go back. before that player will be restricted to insert another name or car plate or anything else.
-
 function handle(param) {
     localStorage.setItem('state',param);
     let state = localStorage.getItem('state');
