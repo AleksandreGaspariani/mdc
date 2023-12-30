@@ -15,7 +15,8 @@ $(document).ready(()=> {
 })
 
 function closeMDC(){
-
+    localStorage.setItem('state','default');
+    $('#MDC-display').toggleClass('d-none');
 }
 
 function init(){
@@ -52,26 +53,21 @@ function prepareForWork() {
     }
 }
 
-let vehicle = '';
-
-let data = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":["#5 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#4 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#3 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#2 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#1 | Driving | Due date 1/1/0001 12:00:00 AM"],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
-// localStorage.removeItem('userInfo');
-// localStorage.setItem('userInfo', JSON.stringify(data));
+let playerData = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":["#5 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#4 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#3 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#2 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#1 | Driving | Due date 1/1/0001 12:00:00 AM"],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
+let vehicleData = '{"VINCode":"VIN05126694","OwnerName":"Veronica Woods","VehicleName":"Mercedes-Benz CLS63 AMG","VehicleCodeName":"cls2015","LicensePlate":"MUGALA","ColorCode1":0,"ColorCode2":0,"ImpoundPrice":350,"ImpoundReason":"სატესტო","PreviousOwners":["1. Pearce Jackson - 8/14/2019 6:02:06 PM","2. Jonathan Woods - 12/1/2016 6:01:44 PM"],"AssignedTo":[]}';
 
 function handlePlayerInput() {
     localStorage.setItem('state','player')
-    let user = $('#player_input').val();
+    let user = $('#player_input').val(); // -> user name which was requested.
     localStorage.setItem('username',user);
-    onRecievePlayerData(data); // <- pass data here
+    onRecievePlayerData(playerData); // <- pass data here
 }
 
 function onRecievePlayerData(data){
 
     userInfo = [];
     
-    if (data.length < 1) {
-        load();
-    }else{
+    if (data.length > 1) {
         let jsonData = JSON.parse(data);    
         userInfo = jsonData;
         load();
@@ -110,13 +106,62 @@ function onRecievePlayerData(data){
         userInfo.Notes.forEach(element => {
             $('#playerNotes').append(`<li>`+element+`</li>`);
         })
+    }else{
+        load();
     }
+}
+
+function handleVehicleInput() {
+    localStorage.setItem('state','vehicle')
+    let vehicle = $('#vehicle_input').val(); // -> vehicle license plate which was requested.
+    localStorage.setItem('vehiclePN',vehicle);
+    onRecieveVehicleData(vehicleData); // <- pass data here
 }
 
 function onRecieveVehicleData(data){
     vehicleInfo = [];
-    let jsonData = JSON.parse(data);    
-    vehicleInfo = jsonData;
+
+    if (data.length < 1) {
+        load();
+    }else{
+        let jsonData = JSON.parse(data);    
+        vehicleInfo = jsonData;
+        console.log(vehicleInfo);
+        load();
+
+        // insert Data.
+        $('#vehicleVIN').append(vehicleInfo.VINCode);
+        $('#vehicleOwner').append(vehicleInfo.OwnerName);
+        $('#vehicleName').append(vehicleInfo.VehicleName);
+        $('#vehicleCodeName').append(vehicleInfo.VehicleCodeName);
+        $('#vehiclePlate').append(vehicleInfo.LicensePlate);
+        $('#vehicleColor1').append(vehicleInfo.ColorCode1);
+        $('#vehicleColor2').append(vehicleInfo.ColorCode2);
+
+        if (vehicleInfo.ImpoundPrice > 0) {
+            $('#vehicleImpound').append(`
+                <small class='m-0 p-0 text-danger'>ავტომობილი იმყოფება/უნდა იმყოფებოდეს საჯარიმოზე.</small>
+                <p class='m-0 p-0 text-info'>საჯარიმოზე გადაყვანის მიზეზი: - `+vehicleInfo.ImpoundReason+` | `+vehicleInfo.ImpoundPrice+`</p>
+            `)
+        }else {
+            $('#vehicleImpound').append(`
+                <p class='m-0 p-0 text-info'>ავტომობილი არ იმყოფება/არ უნდა იმყოფებოდეს საჯარიმოზე.</p>
+            `)
+        }
+
+        vehicleInfo.PreviousOwners.forEach(element => {
+            $('#vehiclePreviousOwners').append(`
+                <li class='text-info'>`+element+`</li>
+            `);
+        });
+
+        vehicleInfo.AssignedTo.forEach(element => {
+            $('#vehicleAssignedTo').append(`
+                <li class='text-info'>`+element+`</li>
+            `);
+        });
+
+    }
 }
 
 function onRecievePropertyData(data){
@@ -149,11 +194,7 @@ function onRecieveMotdData(data){
     motdInfo = jsonData;
 }
 
-function handleVehicleInput() {
-    let vehicle = $('#vehicle_input').val();
-    localStorage.setItem('vehiclePN',vehicle);
-    load();
-}
+
 
 function goToMain() {
     init();
@@ -173,9 +214,8 @@ function handle(param) {
     let state = localStorage.getItem('state');
     switch (state) {
         case 'vehicle':
-            let vehicle = localStorage.getItem('vehiclePN');
 
-            if (vehicle == '') {
+            if (vehicleInfo.length < 1 || vehicleInfo.VINCode === null || vehicleInfo.VINCode === undefined) {
                 $('#content').empty().append(`
                 <div class='d-flex align-items-center justify-content-center m-5' style='gap: 5px;'>
                     <label for=''>Find Vehicle by PN</label>
@@ -211,11 +251,12 @@ function handle(param) {
             <div class='w-100'>
                 <h4>Information: </h4>
                 <ul class='m-0 p-0'>
-                    <li>Owner: <span class='text-info'>John Doe</span></li>
-                    <li>Veh Model: <span>Zenterno</span></li>
-                    <li>Veh Plate: <span class='text-info'>`+localStorage.getItem('vehiclePN')+`</span></li>
-                    <li>Veh avg price: <span>430.000$</span></li>
-                    <li>Insurance: <span class='text-success'>Active </span> <small>untill <span>12/11/2012</span></small></li>
+                    <li>Vehicle VIN Code: <span class='text-info' id='vehicleVIN'></span></li>
+                    <li>Owner: <span class='text-info' id='vehicleOwner'></span></li>
+                    <li>Veh Name: <span class='text-info' id='vehicleName'></span></li>
+                    <li>Veh Code Name: <span class='text-info' id='vehicleCodeName'></span></li>
+                    <li>Veh Plate: <span class='text-info' id='vehiclePlate'></span></li>
+                    <li>Car Color: <span class='text-info' id='vehicleColor1'></span> | <span class='text-info' id='vehicleColor2'></span></li>
                 </ul>
             </div>
 
@@ -225,10 +266,10 @@ function handle(param) {
                 <div class='d-flex flex-column w-50'>
 
                     <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                        <h4 class='mb-3'>Warrants: </h4>
+                        <h4 class='mb-3'>Previous Owners: </h4>
                         <div style='max-height: 70px;' id='records-out-div' class='c_scroll'>
-                            <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;'>
-                                <li>No active Warrants</li>
+                            <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='vehiclePreviousOwners'>
+                                
                             </ul>
                         </div>
                     </div>
@@ -238,19 +279,19 @@ function handle(param) {
                 <div class='d-flex flex-column w-50'>
 
                     <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                        <h4 class='mb-3'>Active Tickets: </h4>
-                        <div style='max-height: 70px;' class='c_scroll'>
-                            <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;'>
-                                <li>Drives thru red light</li>
+                        <h4 class='mb-3'>Impound Information: </h4>
+                        <div style='max-height: 120px;' class='c_scroll'>
+                            <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='vehicleImpound'>
+
                             </ul>
                         </div>
                     </div>
 
                     <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                        <h4 class='mb-3'>Past Tickets: </h4>
-                        <div style='max-height: 70px;' class='c_scroll'>
-                            <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;'>
-                                <li>ღერძულა <small>date: <span>12/11/2012 23:12:34</span></small></li>
+                        <h4 class='mb-3'>Vehicle assigned to : </h4>
+                        <div style='max-height: 120px;' class='c_scroll'>
+                            <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='vehicleAssignedTo'>
+                                
                             </ul>
                         </div>
                     </div>

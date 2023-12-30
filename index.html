@@ -16,6 +16,9 @@
     <title>MDC</title>
 </head>
 <body>
+    <div class="position-absolute" style="top: 10%; left: 45%;" id="errorMessage">
+        <button onclick="closeMDC()">TEST</button>
+    </div>
     <div class="w-100 vh-100 d-flex flex-column" id="MDC-display">
         <header class="position-absolute bg-dark text-white w-100 d-flex justify-content-between align-items-center px-3 py-1" style="border-bottom: 1px solid rgba(82, 82, 82, 0.342); z-index: 2; overflow: hidden;">
             <h3 class="m-0 p-0" onclick="home()" style="cursor: pointer;">Police MDC</h3>
@@ -27,7 +30,7 @@
             <aside class="bg-dark text-white-50 h-100 c_scroll" style="width: 20%; border-right: 1px solid rgba(82, 82, 82, 0.342);">
                 <ul style="height: 100%;" class="d-flex flex-column justify-content-evenly align-items-start m-0 p-0 mt-3 ps-2 c_scroll" id="aside-list" style="height: 100%; overflow-y: scroll">
                     <li onclick="handlePlayerInput()" id="find_player_button">Find Player</li>
-                    <li onclick="handle('vehicle')" id="find_vehicle_button">Find Vehicle</li>
+                    <li onclick="handleVehicleInput()" id="find_vehicle_button">Find Vehicle</li>
                     <li onclick="handle('property')" id="find_property_button">Find Property</li>
                     <li onclick="handle('calls')" id="check_calls_button">Calls</li>
                     <li onclick="handle('employee')" id="check_employees_button">Employees</li>
@@ -38,9 +41,7 @@
             <section class="bg-dark h-100 w-100 text-white-50 py-5 px-3 c_scroll" id="content" style='max-height: 100%; overflow-y: scroll'>
             
             </section>
-            <div class="position-absolute" style="top: 10%; left: 45%;" id="errorMessage">
-                
-            </div>
+            
         </div>
     </div>
     
