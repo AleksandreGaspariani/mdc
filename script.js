@@ -16,9 +16,18 @@ $(document).ready(()=> {
     init();
 })
 
+function closeFromGame(){
+    mp.trigger('hideMDC'); //testirebisas gadaxaze es metodi
+}
+
 function closeMDC(){
     state = 'default';
-    $('#MDC-display').toggleClass('d-none');
+    $('#MDC-display').addClass('d-none').css('opacity', 0);
+}
+
+function openMDC(){
+    state = 'default';
+    $('#MDC-display').removeClass('d-none').css('opacity', 100);
 }
 
 function init(){
@@ -47,17 +56,24 @@ function init(){
 //     }
 // }
 
-let playerData = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":["#5 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#4 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#3 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#2 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#1 | Driving | Due date 1/1/0001 12:00:00 AM"],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
-let vehicleData = '{"VINCode":"VIN05126694","OwnerName":"Veronica Woods","VehicleName":"Mercedes-Benz CLS63 AMG","VehicleCodeName":"cls2015","LicensePlate":"MUGALA","ColorCode1":0,"ColorCode2":0,"ImpoundPrice":350,"ImpoundReason":"სატესტო","PreviousOwners":["1. Pearce Jackson - 8/14/2019 6:02:06 PM","2. Jonathan Woods - 12/1/2016 6:01:44 PM"],"AssignedTo":[]}';
+//** original purposes
+let playerData = [];
+let vehicleData = [];
+
+//** testing purposes
+//let playerData = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":["#5 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#4 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#3 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#2 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#1 | Driving | Due date 1/1/0001 12:00:00 AM"],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
+//let vehicleData = '{"VINCode":"VIN05126694","OwnerName":"Veronica Woods","VehicleName":"Mercedes-Benz CLS63 AMG","VehicleCodeName":"cls2015","LicensePlate":"MUGALA","ColorCode1":0,"ColorCode2":0,"ImpoundPrice":350,"ImpoundReason":"სატესტო","PreviousOwners":["1. Pearce Jackson - 8/14/2019 6:02:06 PM","2. Jonathan Woods - 12/1/2016 6:01:44 PM"],"AssignedTo":[]}';
 
 function handlePlayerInput() {
     state = 'player'
     let user = $('#player_input').val(); // -> user name which was requested.
+    mp.trigger('MDC_RequestPlayerData', user); //testirebisas gadaxaze es method
     onRecievePlayerData(playerData); // <- pass data here
 }
 
 function onRecievePlayerData(data){
 
+    playerData = data;
     userInfo = [];
     
     if (data.length > 1) {
@@ -107,10 +123,12 @@ function onRecievePlayerData(data){
 function handleVehicleInput() {
     state = 'vehicle';
     let vehicle = $('#vehicle_input').val(); // -> vehicle license plate which was requested.
+    mp.trigger('MDC_RequestVehicleData', vehicle); //testirebisas gadaxaze es metodi
     onRecieveVehicleData(vehicleData); // <- pass data here
 }
 
 function onRecieveVehicleData(data){
+    vehicleData = data;
     vehicleInfo = [];
 
     if (data.length < 1) {
@@ -131,13 +149,13 @@ function onRecieveVehicleData(data){
 
         if (vehicleInfo.ImpoundPrice > 0) {
             $('#vehicleImpound').append(`
-                <small class='m-0 p-0 text-danger'>ავტომობილი იმყოფება/უნდა იმყოფებოდეს საჯარიმოზე.</small>
-                <p class='m-0 p-0 text-info'>საჯარიმოზე გადაყვანის მიზეზი: - `+vehicleInfo.ImpoundReason+` | `+vehicleInfo.ImpoundPrice+`</p>
+                <small class='m-0 p-0 text-danger'>ავტომობილი იმყოფება საჯარიმოზე.</small>
+                <p class='m-0 p-0 text-info'>საჯარიმოზე გადაყვანის მიზეზი: `+vehicleInfo.ImpoundReason+` | `+vehicleInfo.ImpoundPrice+`$</p>
             `)
-        }else {
-            $('#vehicleImpound').append(`
-                <p class='m-0 p-0 text-info'>ავტომობილი არ იმყოფება/არ უნდა იმყოფებოდეს საჯარიმოზე.</p>
-            `)
+        // }else {
+        //     $('#vehicleImpound').append(`
+        //         <p class='m-0 p-0 text-info'>ავტომობილი არ იმყოფება/არ უნდა იმყოფებოდეს საჯარიმოზე.</p>
+        //     `)
         }
 
         vehicleInfo.PreviousOwners.forEach(element => {
