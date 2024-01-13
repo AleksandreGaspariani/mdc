@@ -9,6 +9,10 @@
 body{ 
     font-family: 'VT323', monospace;
     background-color: transparent;
+    background: url('https://media.rockstargames.com/rockstargames/img/global/news/upload/4_gtavpc_03272015.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 ul {
@@ -18,6 +22,11 @@ ul {
 p {
     margin: 0px;
     padding: 0px;
+}
+
+#MDC-display {
+    min-height: 75vh !important;
+    max-height: 75vh !important;
 }
 
 .c_hide {
@@ -48,6 +57,15 @@ input {
 
 #find_player_button {
     cursor: pointer;
+}
+
+.hiddenScrollbar::-webkit-scrollbar {
+    display: none !important;
+}
+  
+.hiddenScrollbar {
+-ms-overflow-style: none !important;  /* IE and Edge */
+scrollbar-width: none !important; /* Firefox */
 }
 
 .c_scroll {
