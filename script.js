@@ -63,9 +63,9 @@ function init(){
 // let propertyData = [];
 
 //** testing purposes
-// let playerData = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":["#5 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#4 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#3 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#2 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#1 | Driving | Due date 1/1/0001 12:00:00 AM"],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
-// let vehicleData = '{"VINCode":"VIN05126694","OwnerName":"Veronica Woods","VehicleName":"Mercedes-Benz CLS63 AMG","VehicleCodeName":"cls2015","LicensePlate":"MUGALA","ColorCode1":0,"ColorCode2":0,"ImpoundPrice":350,"ImpoundReason":"სატესტო","PreviousOwners":["1. Pearce Jackson - 8/14/2019 6:02:06 PM","2. Jonathan Woods - 12/1/2016 6:01:44 PM"],"AssignedTo":[]}';
-// let propertyData = '{"VINCode":"VIN05126694","OwnerName":"Veronica Woods","VehicleName":"Mercedes-Benz CLS63 AMG","VehicleCodeName":"cls2015","LicensePlate":"MUGALA","ColorCode1":0,"ColorCode2":0,"ImpoundPrice":350,"ImpoundReason":"სატესტო","PreviousOwners":["1. Pearce Jackson - 8/14/2019 6:02:06 PM","2. Jonathan Woods - 12/1/2016 6:01:44 PM"],"AssignedTo":[]}';
+let playerData = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":["#5 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#4 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#3 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#2 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#1 | Driving | Due date 1/1/0001 12:00:00 AM"],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
+let vehicleData = '{"VINCode":"VIN05126694","OwnerName":"Veronica Woods","VehicleName":"Mercedes-Benz CLS63 AMG","VehicleCodeName":"cls2015","LicensePlate":"MUGALA","ColorCode1":0,"ColorCode2":0,"ImpoundPrice":350,"ImpoundReason":"სატესტო","PreviousOwners":["1. Pearce Jackson - 8/14/2019 6:02:06 PM","2. Jonathan Woods - 12/1/2016 6:01:44 PM"],"AssignedTo":[]}';
+let propertyData = '{"OwnerName":"Veronica Woods","Address":"Paleto Blvd #2","PreviousOwners":["1. Thomas Anderson - 1/8/2016 3:05:04 PM","2. Jonathan Woods - 1/11/2024 3:05:04 PM","3. Thomas Anderson - 1/8/2016 3:05:04 PM","4. Jonathan Woods - 1/11/2024 3:05:04 PM","5. Jonathan Woods - 1/11/2024 3:05:04 PM","6. Thomas Anderson - 1/8/2016 3:05:04 PM","7. Jonathan Woods - 1/11/2024 3:05:04 PM"]}';
 
 function handlePlayerInput() {
     state = 'player'
@@ -189,16 +189,26 @@ function onRecievePropertyData(data){
     
     if (data.length < 1) {
         load();
-        console.log('length less than 1 character');
     }else{
-        console.log('test');
         let jsonData = JSON.parse(data);    
         propertyInfo = jsonData;
         load();
 
         // insert Data.
-    }
 
+        $('#propertyOwner').append(propertyInfo.OwnerName);
+        $('#propertyAddress').append(propertyInfo.Address);
+
+        propertyInfo.PreviousOwners.forEach(element => {
+            $('#propertyPreviousOwners').append(`
+                <li class='text-info'>`+element+`</li>
+            `);
+        });
+    }
+}
+
+function markPropertyLocation() {
+    console.log(propertyInfo.Address); // address which supposted to be writen in gps and locate it.
 }
 
 function onRecieveCallsData(data){
@@ -248,12 +258,14 @@ function handle(param) {
 
             if (vehicleInfo.length < 1 || vehicleInfo.VINCode === null || vehicleInfo.VINCode === undefined) {
                 $('#content').empty().append(`
-                <div class='d-flex align-items-center justify-content-center m-5' style='gap: 5px;'>
+                <div class='d-flex flex-column align-items-center justify-content-center m-5' style='gap: 5px;'>
                     <label for=''>Find Vehicle by PN</label>
-                    <input type='text' placeholder='Type PN' class='form-input' id='vehicle_input' >
-                    <span class='material-symbols-outlined m-0 p-0' id='find_vehicle_button' onclick='handleVehicleInput()' style='cursor: pointer'>
-                        chevron_right
-                    </span>
+                    <div class='d-flex align-items-center'> 
+                        <input type='text' placeholder='Type PN' class='form-input form-control' id='vehicle_input' >
+                        <span class='material-symbols-outlined m-0 p-0' id='find_vehicle_button' onclick='handleVehicleInput()' style='cursor: pointer'>
+                            chevron_right
+                        </span>
+                    </div>
                 </div> 
                 `);
             }else {
@@ -268,12 +280,14 @@ function handle(param) {
                     </p>
                     
                 </div>
-                <div class='d-flex align-items-center justify-content-center m-5' style='gap: 5px;'>
+                <div class='d-flex flex-column align-items-start justify-content-start m-5 ms-0'>
                     <label for=''>Find Vehicle by PN</label>
-                    <input type='text' placeholder='Type PN' class='form-input' id='vehicle_input' >
-                    <span class='material-symbols-outlined m-0 p-0' id='find_vehicle_button' onclick='handleVehicleInput()' style='cursor: pointer'>
-                        chevron_right
-                    </span>
+                    <div class='d-flex align-items-center'> 
+                        <input type='text' placeholder='Type PN' class='form-input form-control' id='vehicle_input' >
+                        <span class='material-symbols-outlined m-0 p-0' id='find_vehicle_button' onclick='handleVehicleInput()' style='cursor: pointer'>
+                            chevron_right
+                        </span>
+                    </div>
                 </div> 
             </div>
                
@@ -346,12 +360,14 @@ function handle(param) {
             if (userInfo.length < 1 || userInfo.FullName === null) {
                 $('#content').empty().append(`
                 <div class='d-flex flex-column align-items-center justify-content-center'>
-                    <div class='d-flex justify-content-center align-items-center m-5' style='gap: 5px;'> 
+                    <div class='d-flex flex-column justify-content-center align-items-center m-5 my-2' style='gap: 5px;'> 
                         <label for=''>Find Player</label>
-                        <input type='text' placeholder='Type Name' class='form-input' id='player_input'>
-                        <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
-                            chevron_right
-                        </span>
+                        <div class='d-flex align-items-center'> 
+                            <input type='text' placeholder='Type Name' class='form-input form-control' id='player_input'>
+                            <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
+                                chevron_right
+                            </span>
+                        </div>
                     </div>
                 </div> 
                 `)
@@ -367,12 +383,14 @@ function handle(param) {
                                 reply
                             </span>
                         </p>
-                        <div class='d-flex align-items-center justify-content-center m-5' style='gap: 5px;'>
+                        <div class='d-flex flex-column align-items-start justify-content-center m-5 my-3' style='gap: 5px;'>
                             <label for=''>Find Player</label>
-                            <input type='text' placeholder='Type Name' class='form-input' id='player_input'>
-                            <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
-                                chevron_right
-                            </span>
+                            <div class='d-flex align-items-center'> 
+                                <input type='text' placeholder='Type Name' class='form-input form-control' id='player_input'>
+                                <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
+                                    chevron_right
+                                </span>
+                            </div>
                         </div> 
                         <div class='d-flex flex-column justify-content-start align-items-start'>   
                             <p id='playerWanted' class='m-0 p-0 text-danger'></p>
@@ -492,13 +510,13 @@ function handle(param) {
                                 <label for='' class='text-start'>Find Property information by address</label>
                                 <div class='d-flex justify-content-start align-items-center w-50'>
                                     <input type='text' placeholder='Type Address' class='form-control' id='property_input' style='width: 100%;'>
-                                    <span class='material-symbols-outlined m-0 p-0' id='find_vehicle_button' onclick='handleVehicleInput()' style='cursor: pointer'>
+                                    <span class='material-symbols-outlined m-0 p-0' id='find_vehicle_button' onclick='handlePropertyInput()' style='cursor: pointer'>
                                         chevron_right
                                     </span>
                                 </div>
                             </div>
                             <div class='w-25 d-flex justify-content-center align-items-center'>
-                                <button class='btn btn-outline-info'>Mark Location</button>
+                                <button class='btn btn-outline-info' onclick='markPropertyLocation()'>Mark Location</button>
                             </div>
                         </div> 
                     </div>
@@ -515,21 +533,12 @@ function handle(param) {
 
                     <div class='d-flex w-100'>
 
-                        <div class='d-flex flex-column w-50'>
-
-                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                                <h4 class='mb-3'>Property Tenants : </h4>
-                                <div style='max-height: 120px;' class='c_scroll'>
-                                    <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='vehicleAssignedTo'>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class='d-flex flex-column w-100'>
 
                             <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                                 <h4 class='mb-3'>Previous Owners: </h4>
-                                <div style='max-height: 70px;' id='records-out-div' class='c_scroll'>
-                                    <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='vehiclePreviousOwners'>
+                                <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
+                                    <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='propertyPreviousOwners'>
                                         
                                     </ul>
                                 </div>
@@ -537,18 +546,6 @@ function handle(param) {
                             
                         </div>
 
-                        <div class='d-flex flex-column w-50'>
-
-                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                                <h4 class='mb-3'>Warrant Information: </h4>
-                                <div style='max-height: 120px;' class='c_scroll'>
-                                    <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='vehicleImpound'>
-
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
                 `)
             }
