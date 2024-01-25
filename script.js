@@ -552,12 +552,12 @@ function handle(param) {
         break;
     
         default:
-            $('#content').empty().append(`
-                <div class='w-100 h-100 position-relative d-flex flex-column justify-content-center align-items-center'>
-                    <img src='imgs/logo.webp' width='250px' height='auto'>
-                    <h1>Police Department MDC</h1>
-                </div>
-            `);
+            // $('#content').empty().append(`
+            //     <div class='w-100 h-100 position-relative d-flex flex-column justify-content-center align-items-center'>
+            //         <img src='imgs/logo.webp' width='250px' height='auto'>
+            //         <h1>Police Department MDC</h1>
+            //     </div>
+            // `);
             break;
         }
     

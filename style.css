@@ -84,3 +84,22 @@ scrollbar-width: none !important; /* Firefox */
     background-color: rgb(33, 0, 218);
     outline: 1px solid rgba(12, 96, 180, 0.521);
 }
+
+.call-item {
+    border-left: 3px solid cyan;
+}
+
+.c_badge {
+    color: white;
+    background-color: rgba(0, 255, 255, 0.274);;
+    cursor: copy;
+}
+
+.call-item {
+    padding: 6px 12px 6px 12px;
+    background-color: rgba(0, 255, 255, 0.103);
+}
+
+.call-item > p > span{
+    color: rgb(201, 201, 201);
+}
