@@ -480,6 +480,47 @@ function handle(param) {
                 `)
             }
             break;
+
+        case 'calls':
+            if(callsInfo.length < 1) {
+                $('#content').empty().append(`
+                    <div class='d-flex flex-column w-100 jsutify-content-start align-items-center'> 
+                        <h3 class='text-info'>There is no Calls yet.</h3>
+                    </div>
+                `)
+            }else {
+                $('#content').empty().append(`
+                    <div class='m-5 w-auto d-flex flex-wrap justify-content-start align-items-start' id="callsTab" style="gap: 15px;">
+                    
+                        <div class='ps-4 w-auto call-item d-flex flex-column justify-content-start align-items-start rounded-2'> 
+                            <p class='text-info'>From: <span class='call-from'>543233</span></p>
+                            <p class='text-info'>Location <span class='call-location'>Paleto Bay 43</span></p>
+                            <p class='text-info'>Status: <span class='class-status'>code 4</span></p>
+                            <div class='d-flex flex-column justify-content-start align-items-start'>
+                                <small>Call responds</small>
+                                <div class='d-flex w-100 flex-wrap' style='font-size: 18px !important; gap: 10px;overflow-x: auto;'>
+                                    <span class='btn py-0 px-3 rounded-3 c_badge'>M402</span>
+                                    <span class='btn py-0 px-3 rounded-3 c_badge'>M402</span>
+                                    <span class='btn py-0 px-3 rounded-3 c_badge'>M402</span>   
+                                    
+                                </div>
+                                <div class='d-flex mt-3 w-100 justify-content-between align-items-center'>
+                                    <button class='btn btn-outline-info py-0 px-2 call-respond' onclick='respondOnCall()'>Respond On Call</button>
+                                    <button class='btn btn-outline-danger py-0 px-2 call-denie' onclick='denieCurrentCall()'>Denie Call</button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                `);
+                
+                // After getting data it will run foreach loop and insert collected data there.
+                // $('#callsTab').append(`
+
+                // `);
+            }
+        break;
+
         case 'property':
             if (propertyInfo.length < 1) {
                 $('#content').empty().append(`
@@ -552,12 +593,12 @@ function handle(param) {
         break;
     
         default:
-            // $('#content').empty().append(`
-            //     <div class='w-100 h-100 position-relative d-flex flex-column justify-content-center align-items-center'>
-            //         <img src='imgs/logo.webp' width='250px' height='auto'>
-            //         <h1>Police Department MDC</h1>
-            //     </div>
-            // `);
+            $('#content').empty().append(`
+                <div class='w-100 h-100 position-relative d-flex flex-column justify-content-center align-items-center'>
+                    <img src='imgs/logo.webp' width='250px' height='auto'>
+                    <h1>Police Department MDC</h1>
+                </div>
+            `);
             break;
         }
     
