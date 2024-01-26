@@ -34,7 +34,7 @@
                         <li onclick="handlePlayerInput()" id="find_player_button">Find Player</li>
                         <li onclick="handleVehicleInput()" id="find_vehicle_button">Find Vehicle</li>
                         <li onclick="handlePropertyInput()" id="find_property_button">Find Property</li>
-                        <li onclick="handle('calls')" id="check_calls_button">Calls</li>
+                        <li onclick="handleCallsInput()" id="check_calls_button">Calls</li>
                         <li onclick="handle('employee')" id="check_employees_button">Employees</li>
                         <li onclick="handle('cases')" id="check_cases_button">Cases</li>
                         <li onclick="handle('motd')" id="check_motd_button">MOTD</li>
@@ -61,46 +61,7 @@
                             </div>
                         </div>
                         <!-- Remodal -->
-                        <div class="w-75 h-75 position-absolute p-2 m-0 c_scroll d-none" style="right: 10%; top: 10%;" id="remodal">
-                            <!-- Close Tab -->
-                            <div class="d-flex justify-content-end align-items-center border-bottom">
-                                <span class="material-symbols-outlined" onclick="closeRemodal()" style="cursor: pointer;">
-                                    close
-                                </span>
-                            </div>
-                            <!--  -->
-
-                            <div class="d-flex flex-column text-white p-5">
-                                <p>Caller Number: <span>123456</span></p>
-                                <p>Caller Location: <span>Paleto Bay 123</span></p>
-                                <p>Call responds</p>
-                                <div class='d-flex w-100 flex-wrap' style='font-size: 18px !important; gap: 10px;overflow-x: auto;'>
-                                    <span class='btn py-0 px-3 rounded-3 c_badge'>M402</span>
-                                    <span class='btn py-0 px-3 rounded-3 c_badge'>M402</span>
-                                    <span class='btn py-0 px-3 rounded-3 c_badge'>M402</span>   
-                                </div>
-                                <hr>
-                                <p>Description: </p>
-                                <small>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur soluta consectetur facilis? Nesciunt beatae id doloribus dignissimos, eius accusantium sunt consectetur, unde cum nostrum a perspiciatis quidem reiciendis obcaecati corrupti quae in. Libero autem accusantium nemo omnis provident reprehenderit odio.</small>
-                                <hr>
-                                <p>Text respond on calls</p>
-                                <div class="h-auto px-3 py-1 w-100 d-flex flex-column justify-content-start align-items-start commentList c_scroll">
-                                    <div class="comment d-flex flex-column">
-                                        <div class="d-flex justify-content-start align-items-center" style="gap: 15px;">
-                                            <p class="responderName">Jhon Doe</p>
-                                            <small>12/01/2021 14:23:44</small>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore fugit quia exercitationem sunt! Voluptatum, tempore.</p>
-                                    </div>
-                                </div>
-                                <!-- Write Comment -->
-                                <div class="w-100">
-                                    <textarea name="comment" id="writenComment" cols="60" class="w-100 h-25 c_scroll" placeholder="Type your comment here"></textarea>
-                                    <button class="btn btn-outline-light w-100" onclick="sendComment()">Send</button>
-                                </div>
-                                <!--  -->
-                            </div>
-                        </div>
+                        
                         <!--  -->
                     </div>
                 </section>

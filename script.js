@@ -66,6 +66,8 @@ function init(){
 let playerData = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":["#5 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#4 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#3 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#2 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#1 | Driving | Due date 1/1/0001 12:00:00 AM"],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
 let vehicleData = '{"VINCode":"VIN05126694","OwnerName":"Veronica Woods","VehicleName":"Mercedes-Benz CLS63 AMG","VehicleCodeName":"cls2015","LicensePlate":"MUGALA","ColorCode1":0,"ColorCode2":0,"ImpoundPrice":350,"ImpoundReason":"სატესტო","PreviousOwners":["1. Pearce Jackson - 8/14/2019 6:02:06 PM","2. Jonathan Woods - 12/1/2016 6:01:44 PM"],"AssignedTo":[]}';
 let propertyData = '{"OwnerName":"Veronica Woods","Address":"Paleto Blvd #2","PreviousOwners":["1. Thomas Anderson - 1/8/2016 3:05:04 PM","2. Jonathan Woods - 1/11/2024 3:05:04 PM","3. Thomas Anderson - 1/8/2016 3:05:04 PM","4. Jonathan Woods - 1/11/2024 3:05:04 PM","5. Jonathan Woods - 1/11/2024 3:05:04 PM","6. Thomas Anderson - 1/8/2016 3:05:04 PM","7. Jonathan Woods - 1/11/2024 3:05:04 PM"]}';
+let callsData = '[{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":550612,"Location":"Somewhere in New York","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[{"Unit":"L201","OfficerNames":"Bondo Gaoxrebuli"},{"Unit":"A204","OfficerNames":"Jonathan Woods, Veronica Woods"}]},{"ID":3,"Status":0,"Caller":"Jonathan Woods","CallerNumber":551267,"Location":"Paleto Blvd #44","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[]}]';
+
 
 function handlePlayerInput() {
     state = 'player'
@@ -211,24 +213,162 @@ function markPropertyLocation() {
     console.log(propertyInfo.Address); // address which supposted to be writen in gps and locate it.
 }
 
+function handleCallsInput() {
+    state = 'calls';
+    // mp.trigger('MDC_RequestPropertyData', propertyAddress); //testirebisas gadaxaze es metodi
+    onRecieveCallsData(callsData); // <- pass data here
+}
+
 function onRecieveCallsData(data){
+    callsData = data;
     callsInfo = [];
-    let jsonData = JSON.parse(data);    
-    callsInfo = jsonData;
+
+    if (data.length < 1) {
+        load();
+    }else {
+        let jsonData = JSON.parse(data);    
+        callsInfo = jsonData;
+        load();
+        
+        appendRemodalForCalls();
+
+        callsInfo.forEach(element => {
+            let tempId = element.ID;
+            $('#callsTab').append(`
+                <div class='ps-4 w-auto call-item d-flex flex-column justify-content-start align-items-start rounded-2' onclick='currentCallInformation(`+tempId+`)'> 
+                    <p class='text-info'>Number Owner: <span class='call-number-owner'>`+element.Caller+`</span></p>
+                    <p class='text-info'>From: <span class='call-from'>`+element.CallerNumber+`</span></p>
+                    <p class='text-info'>Location <span class='call-location'>`+element.Location+`</span></p>
+                    <p class='text-info'>Status: <span class='call-status'>`+element.Status+`</span></p>
+                    <small class='text-info'>Date: <span class='c'>`+element.Date+`</span> </small>
+                    <div class='position-relative d-flex flex-column justify-content-start align-items-start'>
+                        <small>Call responds</small>
+                        <div class='d-flex w-100 flex-wrap callRespond-`+tempId+`' style='gap: 10px;'>
+                            
+                        </div>
+                    </div>
+
+                    <div class='d-flex mt-3 w-100 justify-content-between align-items-center'>
+                        <button class='btn btn-outline-info py-0 px-2 call-respond' onclick='respondOnCall(`+element.tempId+`)'>Respond On Call</button>
+                        <button class='btn btn-outline-danger py-0 px-2 call-denie' onclick='denieCurrentCall(`+element.tempId+`)'>Denie Call</button>
+                    </div>
+
+                </div>
+            `);
+
+            if (element.CallResponders.length > 0) {
+                element.CallResponders.forEach(element => {
+                    
+                    $('.callRespond-'+tempId+'').append(`
+                        <span class='btn py-0 px-3 rounded-3 c_badge d-flex flex-column justify-content-start align-items-start'>
+                            <p class='m-0 p-0'>`+element.Unit+`</p>
+                        </span>
+                    `)
+                });
+            }else {
+                $('.callRespond-'+tempId+'').append(`
+                    <span class='btn py-0 px-3 rounded-3 c_badge d-flex flex-column justify-content-start align-items-start'>
+                        Theres no responders yet.
+                    </span>
+                `)
+            }
+        });
+
+    }
+}
+
+function appendRemodalForCalls(){
+    $('#callsTab').append(`
+        <div class="w-75 h-75 position-absolute p-2 m-0 c_scroll d-none" style="right: 10%; top: 10%;" id="remodal">
+            <!-- Close Tab -->
+            <div class="d-flex justify-content-end align-items-center border-bottom">
+                <span class="material-symbols-outlined" onclick="closeRemodal()" style="cursor: pointer;">
+                    close
+                </span>
+            </div>
+            <!--  -->
+
+            <div class="d-flex flex-column text-white p-5" id='remodalInfoTab'>
+            
+            </div>
+        </div>
+    `)
 }
 
 function currentCallInformation(callNum) {
-    // კონკრეტული იდის მქონე ზარისთვის საჭირო ინფორმაციის მოწოდება
-    let data = ''; // აქ
+    // Collect information
+    // MP.trigger('MDC_test',callNum);
+
+    let data = '{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":550612,"Location":"Somewhere in New York","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[{"Unit":"L201","OfficerNames":"Bondo Gaoxrebuli"},{"Unit":"A204","OfficerNames":"Jonathan Woods, Veronica Woods"}],"CallNotes":[{"Name":"Andrew Garfield","Text":"vigaca ragacas afuchebs ubanshi pirvel sartulze","Date":"26/01/2020 19:11:45 (( 26/01/2024 22:12:19 ))"},{"Name":"Jonathan Woods","Text":"adgilze mivedit ver vipovet caller, verc damrgvevi, tumca sheinishna shavi infernus misvlisas romelic samxretit daidzra","Date":"26/01/2020 19:12:25 (( 26/01/2024 22:13:08 ))"}]}'; // აქ
+
+    insertCurrentCallInformation(data);
+}
+
+function insertCurrentCallInformation(data){
+
+    let tempData = JSON.parse(data);
+
+    $('#remodalInfoTab').empty().append(`
+        <small>Date: `+tempData.Date+`</small>
+        <p>Caller Number: <span>`+tempData.CallerNumber+`</span></p>
+        <p>Number Owner: <span>`+tempData.Caller+`</span></p>
+        <p>Caller Location: <span>`+tempData.Location+`</span></p>
+        <p>Status: <span>`+tempData.Status+`</span></p>
+        <p>Call responds</p>
+        <div class='d-flex w-100 flex-wrap remodalRespondersList' style='font-size: 18px !important; gap: 10px;overflow-x: auto;'>
+
+        </div>
+        <hr>
+        <p>Description: </p>
+        <small>`+tempData.CallNotes[0].Text+`</small>
+        <hr>
+        <p>Text respond on calls</p>
+        <div class="h-auto px-3 py-1 w-100 d-flex flex-column justify-content-start align-items-start commentList c_scroll">
+            
+        </div>
+        <!-- Write Comment -->
+        <div class="w-100">
+            <textarea name="comment" id="writenComment" cols="60" class="w-100 h-25 c_scroll" placeholder="Type your comment here"></textarea>
+            <button class="btn btn-outline-light w-100" onclick="sendComment(`+tempData.ID+`)">Send</button>
+        </div>
+        <!--  -->
+    `);
+
+    tempData.CallResponders.forEach(element => {
+        $('.remodalRespondersList').append(`
+            <span class='btn py-0 px-3 rounded-3 c_badge d-flex flex-column justify-content-start align-items-start'>
+                <p class='m-0 p-0'>`+element.Unit+`</p>
+                <small class='m-0 p-0'>`+element.OfficerNames+`</small>
+            </span>
+        `);
+    })
+
+    for (let index = 1; index < tempData.CallNotes.length; index++) {
+        const element = tempData.CallNotes[index];
+
+        $('.commentList').append(`
+            <div class='comment d-flex flex-column'>
+                <div class='d-flex justify-content-start align-items-center' style='gap: 15px;'>
+                    <p class='responderName'>`+element.Name+`</p>
+                    <small>`+element.Date+`</small>
+                </div>
+                <p>`+element.Text+`</p>
+            </div>
+        `);
+        console.log(element);
+    }
 
     $('#remodal').toggleClass('d-none');
+
 }
 
 function closeRemodal(){
     $('#remodal').toggleClass('d-none');
 }
 
-function sendComment(){
+function sendComment(id){
+
+    let forCallNum = id;
     let comment = $('#writenComment').val();
     console.log(comment);
 }
@@ -505,26 +645,9 @@ function handle(param) {
                 `)
             }else {
                 $('#content').empty().append(`
-                    <div class='m-5 w-auto d-flex flex-wrap justify-content-start align-items-start' id="callsTab" style="gap: 15px;">
+                    <div class='m-5 w-auto d-flex flex-wrap justify-content-start align-items-start' id='callsTab' style='gap: 15px;'>
                     
-                        <div class='ps-4 w-auto call-item d-flex flex-column justify-content-start align-items-start rounded-2'> 
-                            <p class='text-info'>From: <span class='call-from'>543233</span></p>
-                            <p class='text-info'>Location <span class='call-location'>Paleto Bay 43</span></p>
-                            <p class='text-info'>Status: <span class='class-status'>code 4</span></p>
-                            <div class='d-flex flex-column justify-content-start align-items-start'>
-                                <small>Call responds</small>
-                                <div class='d-flex w-100 flex-wrap' style='font-size: 18px !important; gap: 10px;overflow-x: auto;'>
-                                    <span class='btn py-0 px-3 rounded-3 c_badge'>M402</span>
-                                    <span class='btn py-0 px-3 rounded-3 c_badge'>M402</span>
-                                    <span class='btn py-0 px-3 rounded-3 c_badge'>M402</span>   
-                                    
-                                </div>
-                                <div class='d-flex mt-3 w-100 justify-content-between align-items-center'>
-                                    <button class='btn btn-outline-info py-0 px-2 call-respond' onclick='respondOnCall()'>Respond On Call</button>
-                                    <button class='btn btn-outline-danger py-0 px-2 call-denie' onclick='denieCurrentCall()'>Denie Call</button>
-                                </div>
-                            </div>
-                        </div>
+                        
                     
                     </div>
                 `);
@@ -608,12 +731,12 @@ function handle(param) {
         break;
     
         default:
-            // $('#content').empty().append(`
-            //     <div class='w-100 h-100 position-relative d-flex flex-column justify-content-center align-items-center'>
-            //         <img src='imgs/logo.webp' width='250px' height='auto'>
-            //         <h1>Police Department MDC</h1>
-            //     </div>
-            // `);
+            $('#content').empty().append(`
+                <div class='w-100 h-100 position-relative d-flex flex-column justify-content-center align-items-center'>
+                    <img src='imgs/logo.webp' width='250px' height='auto'>
+                    <h1>Police Department MDC</h1>
+                </div>
+            `);
             break;
         }
     
