@@ -217,6 +217,22 @@ function onRecieveCallsData(data){
     callsInfo = jsonData;
 }
 
+function currentCallInformation(callNum) {
+    // კონკრეტული იდის მქონე ზარისთვის საჭირო ინფორმაციის მოწოდება
+    let data = ''; // აქ
+
+    $('#remodal').toggleClass('d-none');
+}
+
+function closeRemodal(){
+    $('#remodal').toggleClass('d-none');
+}
+
+function sendComment(){
+    let comment = $('#writenComment').val();
+    console.log(comment);
+}
+
 function onRecieveEmployeeData(data){
     employeeInfo = [];
     let jsonData = JSON.parse(data);    
@@ -234,7 +250,6 @@ function onRecieveMotdData(data){
     let jsonData = JSON.parse(data);    
     motdInfo = jsonData;
 }
-
 
 
 function goToMain() {
@@ -593,12 +608,12 @@ function handle(param) {
         break;
     
         default:
-            $('#content').empty().append(`
-                <div class='w-100 h-100 position-relative d-flex flex-column justify-content-center align-items-center'>
-                    <img src='imgs/logo.webp' width='250px' height='auto'>
-                    <h1>Police Department MDC</h1>
-                </div>
-            `);
+            // $('#content').empty().append(`
+            //     <div class='w-100 h-100 position-relative d-flex flex-column justify-content-center align-items-center'>
+            //         <img src='imgs/logo.webp' width='250px' height='auto'>
+            //         <h1>Police Department MDC</h1>
+            //     </div>
+            // `);
             break;
         }
     

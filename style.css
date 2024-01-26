@@ -83,6 +83,9 @@ scrollbar-width: none !important; /* Firefox */
 .c_scroll::-webkit-scrollbar-thumb {
     background-color: rgb(33, 0, 218);
     outline: 1px solid rgba(12, 96, 180, 0.521);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-clip: padding-box;  
 }
 
 .call-item {
@@ -91,15 +94,52 @@ scrollbar-width: none !important; /* Firefox */
 
 .c_badge {
     color: white;
-    background-color: rgba(0, 255, 255, 0.274);;
+    background-color: rgba(0, 255, 255, 0.274);
     cursor: copy;
 }
 
 .call-item {
     padding: 6px 12px 6px 12px;
     background-color: rgba(0, 255, 255, 0.103);
+    cursor: pointer;
 }
 
 .call-item > p > span{
     color: rgb(201, 201, 201);
+}
+
+#remodal {
+    z-index: 100;
+    border-radius: 15px;
+    border-top: 2px solid cyan;
+    border-left: 2px solid cyan;
+    background-color: rgba(80, 101, 219, 0.274);
+    backdrop-filter: blur(3px);
+}
+
+.responderName {
+    border-bottom: 1px solid green;
+    color: black;
+}   
+
+.commentList {
+    background-color: rgba(80, 101, 219, 0.486);
+    color: white;
+    border-radius: 5px;
+    max-height: 300px;
+    min-height: 300px;
+    gap: 15px;
+}
+
+.comment {
+    background-color: rgba(80, 101, 219, 0.404);
+    padding: 4px;
+}
+
+#writenComment {
+    margin-top: 4px;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.479);
+    color: black;
+    padding: 4px 8px;
 }
