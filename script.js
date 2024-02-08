@@ -66,7 +66,7 @@ function init(){
 let playerData = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":["#5 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#4 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#3 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#2 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#1 | Driving | Due date 1/1/0001 12:00:00 AM"],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
 let vehicleData = '{"VINCode":"VIN05126694","OwnerName":"Veronica Woods","VehicleName":"Mercedes-Benz CLS63 AMG","VehicleCodeName":"cls2015","LicensePlate":"MUGALA","ColorCode1":0,"ColorCode2":0,"ImpoundPrice":350,"ImpoundReason":"სატესტო","PreviousOwners":["1. Pearce Jackson - 8/14/2019 6:02:06 PM","2. Jonathan Woods - 12/1/2016 6:01:44 PM"],"AssignedTo":[]}';
 let propertyData = '{"OwnerName":"Veronica Woods","Address":"Paleto Blvd #2","PreviousOwners":["1. Thomas Anderson - 1/8/2016 3:05:04 PM","2. Jonathan Woods - 1/11/2024 3:05:04 PM","3. Thomas Anderson - 1/8/2016 3:05:04 PM","4. Jonathan Woods - 1/11/2024 3:05:04 PM","5. Jonathan Woods - 1/11/2024 3:05:04 PM","6. Thomas Anderson - 1/8/2016 3:05:04 PM","7. Jonathan Woods - 1/11/2024 3:05:04 PM"]}';
-let callsData = '[{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":550612,"Location":"Somewhere in New York","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[{"Unit":"L201","OfficerNames":"Bondo Gaoxrebuli"},{"Unit":"A204","OfficerNames":"Jonathan Woods, Veronica Woods"}]},{"ID":3,"Status":0,"Caller":"Jonathan Woods","CallerNumber":551267,"Location":"Paleto Blvd #44","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[]}]';
+let callsData = '[{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":550612,"Location":"Somewhere in New York","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[{"Unit":"L201","OfficerNames":"Bondo Gaoxrebuli"},{"Unit":"A204","OfficerNames":"Jonathan Woods, Veronica Woods"}],"CallButtons":["Join","Respond"]},{"ID":3,"Status":0,"Caller":"Jonathan Woods","CallerNumber":551267,"Location":"Paleto Blvd #44","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[],"CallButtons":["Leave","Close"]}]';
 
 
 function handlePlayerInput() {
@@ -234,8 +234,9 @@ function onRecieveCallsData(data){
 
         callsInfo.forEach(element => {
             let tempId = element.ID;
+            let buttons = element.CallButtons;
             $('#callsTab').append(`
-                <div class='ps-4 w-auto call-item d-flex flex-column justify-content-start align-items-start rounded-2' onclick='currentCallInformation(`+tempId+`)'> 
+                <div class='ps-4 w-auto call-item d-flex flex-column justify-content-start align-items-start rounded-2' ondblclick='currentCallInformation(`+tempId+`)'> 
                     <p class='text-info'>Number Owner: <span class='call-number-owner'>`+element.Caller+`</span></p>
                     <p class='text-info'>From: <span class='call-from'>`+element.CallerNumber+`</span></p>
                     <p class='text-info'>Location <span class='call-location'>`+element.Location+`</span></p>
@@ -248,9 +249,8 @@ function onRecieveCallsData(data){
                         </div>
                     </div>
 
-                    <div class='d-flex mt-3 w-100 justify-content-between align-items-center'>
-                        <button class='btn btn-outline-info py-0 px-2 call-respond' onclick='respondOnCall(`+element.tempId+`)'>Respond On Call</button>
-                        <button class='btn btn-outline-danger py-0 px-2 call-denie' onclick='denieCurrentCall(`+element.tempId+`)'>Denie Call</button>
+                    <div class='d-flex mt-3 w-100 justify-content-between align-items-center' id='callButtonsArea`+tempId+`'>
+                        
                     </div>
 
                 </div>
@@ -272,9 +272,22 @@ function onRecieveCallsData(data){
                     </span>
                 `)
             }
+
+            for (let i = 0; i < buttons.length; i++) {
+                const buttonName = buttons[i];
+                $('#callButtonsArea'+tempId).append(`
+                    <p class='btn btn-outline-info py-0 px-2 call-respond' onclick="respondOnCall(`+tempId+`,'`+buttonName+`')">`+buttonName+`</p>
+                `)
+            };
         });
 
     }
+}
+
+function respondOnCall(id, button) {
+
+    console.log('it`s '+id+' call, and button which was clicked is: '+button);
+
 }
 
 function appendRemodalForCalls(){
@@ -355,7 +368,6 @@ function insertCurrentCallInformation(data){
                 <p>`+element.Text+`</p>
             </div>
         `);
-        console.log(element);
     }
 
     $('#remodal').toggleClass('d-none');
