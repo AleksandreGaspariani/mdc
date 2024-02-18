@@ -9,7 +9,7 @@
 body{ 
     font-family: 'VT323', monospace;
     background-color: transparent;
-    background: url('https://media.rockstargames.com/rockstargames/img/global/news/upload/4_gtavpc_03272015.jpg');
+    /* background: url('https://media.rockstargames.com/rockstargames/img/global/news/upload/4_gtavpc_03272015.jpg'); */
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

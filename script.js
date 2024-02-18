@@ -17,7 +17,7 @@ $(document).ready(()=> {
 })
 
 function closeFromGame(){
-    // mp.trigger('hideMDC'); //testirebisas gadaxaze es metodi
+    mp.trigger('hideMDC'); //testirebisas gadaxaze es metodi
 }
 
 function closeMDC(){
@@ -72,7 +72,7 @@ let callsData = '[{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":5
 function handlePlayerInput() {
     state = 'player'
     let user = $('#player_input').val(); // -> user name which was requested.
-    // mp.trigger('MDC_RequestPlayerData', user); //testirebisas gadaxaze es method
+    mp.trigger('MDC_RequestPlayerData', user); //testirebisas gadaxaze es method
     onRecievePlayerData(playerData); // <- pass data here
 }
 
@@ -128,7 +128,7 @@ function onRecievePlayerData(data){
 function handleVehicleInput() {
     state = 'vehicle';
     let vehicle = $('#vehicle_input').val(); // -> vehicle license plate which was requested.
-    // mp.trigger('MDC_RequestVehicleData', vehicle); //testirebisas gadaxaze es metodi
+    mp.trigger('MDC_RequestVehicleData', vehicle); //testirebisas gadaxaze es metodi
     onRecieveVehicleData(vehicleData); // <- pass data here
 }
 
@@ -181,7 +181,7 @@ function onRecieveVehicleData(data){
 function handlePropertyInput() {
     state = 'property';
     let propertyAddress = $('#property_input').val(); // -> vehicle license plate which was requested.
-    // mp.trigger('MDC_RequestPropertyData', propertyAddress); //testirebisas gadaxaze es metodi
+    mp.trigger('MDC_RequestPropertyData', propertyAddress); //testirebisas gadaxaze es metodi
     onRecievePropertyData(propertyData); // <- pass data here
 }
 
@@ -215,8 +215,8 @@ function markPropertyLocation() {
 
 function handleCallsInput() {
     state = 'calls';
-    // mp.trigger('MDC_RequestPropertyData', propertyAddress); //testirebisas gadaxaze es metodi
-    onRecieveCallsData(callsData); // <- pass data here
+    mp.trigger('MDC_RequestAllCallData'); //testirebisas gadaxaze es metodi
+//    onRecieveCallsData(callsData); // <- pass data here
 }
 
 function onRecieveCallsData(data){
@@ -286,7 +286,8 @@ function onRecieveCallsData(data){
 
 function respondOnCall(id, button) {
 
-    console.log('it`s '+id+' call, and button which was clicked is: '+button);
+    //console.log('it`s '+id+' call, and button which was clicked is: '+button);
+    mp.trigger(`MDC_CallButtonPressed`, id, button);
 
 }
 
@@ -310,11 +311,11 @@ function appendRemodalForCalls(){
 
 function currentCallInformation(callNum) {
     // Collect information
-    // MP.trigger('MDC_test',callNum);
 
-    let data = '{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":550612,"Location":"Somewhere in New York","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[{"Unit":"L201","OfficerNames":"Bondo Gaoxrebuli"},{"Unit":"A204","OfficerNames":"Jonathan Woods, Veronica Woods"}],"CallNotes":[{"Name":"Andrew Garfield","Text":"vigaca ragacas afuchebs ubanshi pirvel sartulze","Date":"26/01/2020 19:11:45 (( 26/01/2024 22:12:19 ))"},{"Name":"Jonathan Woods","Text":"adgilze mivedit ver vipovet caller, verc damrgvevi, tumca sheinishna shavi infernus misvlisas romelic samxretit daidzra","Date":"26/01/2020 19:12:25 (( 26/01/2024 22:13:08 ))"}]}'; // აქ
+    //let data = '{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":550612,"Location":"Somewhere in New York","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[{"Unit":"L201","OfficerNames":"Bondo Gaoxrebuli"},{"Unit":"A204","OfficerNames":"Jonathan Woods, Veronica Woods"}],"CallNotes":[{"Name":"Andrew Garfield","Text":"vigaca ragacas afuchebs ubanshi pirvel sartulze","Date":"26/01/2020 19:11:45 (( 26/01/2024 22:12:19 ))"},{"Name":"Jonathan Woods","Text":"adgilze mivedit ver vipovet caller, verc damrgvevi, tumca sheinishna shavi infernus misvlisas romelic samxretit daidzra","Date":"26/01/2020 19:12:25 (( 26/01/2024 22:13:08 ))"}]}'; // აქ
+    MP.trigger('MDC_RequestCallData',callNum);
 
-    insertCurrentCallInformation(data);
+    //insertCurrentCallInformation(data);
 }
 
 function insertCurrentCallInformation(data){
