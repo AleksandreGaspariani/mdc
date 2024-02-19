@@ -17,7 +17,7 @@ $(document).ready(()=> {
 })
 
 function closeFromGame(){
-    mp.trigger('hideMDC'); //testirebisas gadaxaze es metodi
+    // mp.trigger('hideMDC'); //testirebisas gadaxaze es metodi
 }
 
 function closeMDC(){
@@ -47,32 +47,23 @@ function init(){
     handle(state);
 }
 
-// function prepareForWork() {
-//     if (localStorage.getItem('used') !== null) {
-//         handle(localStorage.getItem('state'));
-//     }else {
-//         // insert defaults for localStorage for not geting undefined type variables.
-//         init();
-//     }
-// }
-
 //** original purposes
 
-let playerData = [];
-let vehicleData = [];
-let propertyData = [];
+// let playerData = [];
+// let vehicleData = [];
+// let propertyData = [];
 
 //** testing purposes
-//let playerData = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":["#5 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#4 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#3 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#2 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#1 | Driving | Due date 1/1/0001 12:00:00 AM"],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
-//let vehicleData = '{"VINCode":"VIN05126694","OwnerName":"Veronica Woods","VehicleName":"Mercedes-Benz CLS63 AMG","VehicleCodeName":"cls2015","LicensePlate":"MUGALA","ColorCode1":0,"ColorCode2":0,"ImpoundPrice":350,"ImpoundReason":"სატესტო","PreviousOwners":["1. Pearce Jackson - 8/14/2019 6:02:06 PM","2. Jonathan Woods - 12/1/2016 6:01:44 PM"],"AssignedTo":[]}';
-//let propertyData = '{"OwnerName":"Veronica Woods","Address":"Paleto Blvd #2","PreviousOwners":["1. Thomas Anderson - 1/8/2016 3:05:04 PM","2. Jonathan Woods - 1/11/2024 3:05:04 PM","3. Thomas Anderson - 1/8/2016 3:05:04 PM","4. Jonathan Woods - 1/11/2024 3:05:04 PM","5. Jonathan Woods - 1/11/2024 3:05:04 PM","6. Thomas Anderson - 1/8/2016 3:05:04 PM","7. Jonathan Woods - 1/11/2024 3:05:04 PM"]}';
-//let callsData = '[{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":550612,"Location":"Somewhere in New York","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[{"Unit":"L201","OfficerNames":"Bondo Gaoxrebuli"},{"Unit":"A204","OfficerNames":"Jonathan Woods, Veronica Woods"}],"CallButtons":["Join","Respond"]},{"ID":3,"Status":0,"Caller":"Jonathan Woods","CallerNumber":551267,"Location":"Paleto Blvd #44","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[],"CallButtons":["Leave","Close"]}]';
+let playerData = '{"FullName":"Veronica Woods","Age":35,"Sex":"მდედრობითი","Avatar":null,"PhoneNumber":0,"BornDate":"2023-06-24T00:00:00","IsWanted":true,"WantedText":"მკვლელობა დამამძიმებელ გარემოებებში","Licenses":["#5 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#4 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#3 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#2 | Weapon License - FPM | Due date 1/1/0001 12:00:00 AM","#1 | Driving | Due date 1/1/0001 12:00:00 AM"],"Vehicles":["[MUGALA] Mercedes-Benz CLS63 AMG (საჯარიმო სადგომზე 350$)","[MUGALA2] E39","[UENZBQ] Karin Dilettante (dilettante)","[9K8WFB] Invetero Coquette BlackFin (coquette3)","[TIWDCX] BF Club (club)","[2QMSCJ] Lampadati Komoda (komoda)","[T50XE3] Grotti Carbonizzare (carbonizzare)"],"Properties":["1. Paleto Blvd #2","2. Procopio Dr / Paleto Blvd #7"],"Records":["#1 | ძებნაშია | მკვლელობა დამამძიმებელ გარემოებებში","#2 | დაკავებულია | ყაჩაღობა","#3 | ანულირებულია (Thomas Anderson) | ჯგუფური თავდასხმა"],"Tickets":["#1 | გადაუხდელი | 200$ | imiromtom"],"Notes":["#1 | 12/28/2023 12:55:08 AM | მიეცა სიტყვიერი გაფრთხილება საგზაო მოძრაობის წესების დარღვევაზე"]}';
+let vehicleData = '{"VINCode":"VIN05126694","OwnerName":"Veronica Woods","VehicleName":"Mercedes-Benz CLS63 AMG","VehicleCodeName":"cls2015","LicensePlate":"MUGALA","ColorCode1":0,"ColorCode2":0,"ImpoundPrice":350,"ImpoundReason":"სატესტო","PreviousOwners":["1. Pearce Jackson - 8/14/2019 6:02:06 PM","2. Jonathan Woods - 12/1/2016 6:01:44 PM"],"AssignedTo":[]}';
+let propertyData = '{"OwnerName":"Veronica Woods","Address":"Paleto Blvd #2","PreviousOwners":["1. Thomas Anderson - 1/8/2016 3:05:04 PM","2. Jonathan Woods - 1/11/2024 3:05:04 PM","3. Thomas Anderson - 1/8/2016 3:05:04 PM","4. Jonathan Woods - 1/11/2024 3:05:04 PM","5. Jonathan Woods - 1/11/2024 3:05:04 PM","6. Thomas Anderson - 1/8/2016 3:05:04 PM","7. Jonathan Woods - 1/11/2024 3:05:04 PM"]}';
+let callsData = '[{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":550612,"Location":"Somewhere in New York","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[{"Unit":"L201","OfficerNames":"Bondo Gaoxrebuli"},{"Unit":"A204","OfficerNames":"Jonathan Woods, Veronica Woods"}],"CallButtons":["Join","Respond"]},{"ID":3,"Status":0,"Caller":"Jonathan Woods","CallerNumber":551267,"Location":"Paleto Blvd #44","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[],"CallButtons":["Leave","Close"]}]';
 
 
 function handlePlayerInput() {
     state = 'player'
     let user = $('#player_input').val(); // -> user name which was requested.
-    mp.trigger('MDC_RequestPlayerData', user); //testirebisas gadaxaze es method
+    // mp.trigger('MDC_RequestPlayerData', user); //testirebisas gadaxaze es method
     onRecievePlayerData(playerData); // <- pass data here
 }
 
@@ -141,19 +132,19 @@ function addNote(which){
             // Do your logic here for adding note
             console.log('note '+ text);
 
-            mp.trigger('MDC_RequestPlayerDataChange', $('#playerFullName').val(),'note', text);
+            // mp.trigger('MDC_RequestPlayerDataChange', playerName,'note', text);
         break;
         case 'wanted':
             $('#noteForAssign').val('').attr('placeholder','Wanted Assigned');
             // Do your logic here for assigning wanted
             console.log('wanted '+ text);
-            mp.trigger('MDC_RequestPlayerDataChange', $('#playerFullName').val(), 'wanted', text);
+            // mp.trigger('MDC_RequestPlayerDataChange', playerName, 'wanted', text);
         break;
         case 'removeWanted':
             $('#noteForAssign').val('').attr('placeholder','Wanted Removed');
             // Do your logic here for removing wanted
             console.log('removeWanted '+ text);
-            mp.trigger('MDC_RequestPlayerDataChange', $('#playerFullName').val(), 'removewanted', text);
+            // mp.trigger('MDC_RequestPlayerDataChange', playerName, 'removewanted', text);
         break;
         default:
             break;
@@ -163,7 +154,7 @@ function addNote(which){
 function handleVehicleInput() {
     state = 'vehicle';
     let vehicle = $('#vehicle_input').val(); // -> vehicle license plate which was requested.
-    mp.trigger('MDC_RequestVehicleData', vehicle); //testirebisas gadaxaze es metodi
+    // mp.trigger('MDC_RequestVehicleData', vehicle); //testirebisas gadaxaze es metodi
     onRecieveVehicleData(vehicleData); // <- pass data here
 }
 
@@ -215,7 +206,7 @@ function onRecieveVehicleData(data){
 function handlePropertyInput() {
     state = 'property';
     let propertyAddress = $('#property_input').val(); // -> vehicle license plate which was requested.
-    mp.trigger('MDC_RequestPropertyData', propertyAddress); //testirebisas gadaxaze es metodi
+    // mp.trigger('MDC_RequestPropertyData', propertyAddress); //testirebisas gadaxaze es metodi
     onRecievePropertyData(propertyData); // <- pass data here
 }
 
@@ -246,12 +237,12 @@ function onRecievePropertyData(data){
 function markPropertyLocation() {
     console.log(propertyInfo.Address); // address which supposted to be writen in gps and locate it.
 
-    mp.trigger('MDC_RequestPropertyLocation', propertyInfo.Address);
+    // mp.trigger('MDC_RequestPropertyLocation', propertyInfo.Address);
 }
 
 function handleCallsInput() {
     state = 'calls';
-    mp.trigger('MDC_RequestAllCallData'); //testirebisas gadaxaze es metodi
+    // mp.trigger('MDC_RequestAllCallData'); //testirebisas gadaxaze es metodi
     onRecieveCallsData(callsData); // <- pass data here
 }
 
@@ -323,7 +314,7 @@ function onRecieveCallsData(data){
 function respondOnCall(id, button) {
 
     //console.log('it`s '+id+' call, and button which was clicked is: '+button);
-    mp.trigger(`MDC_CallButtonPressed`, id, button);
+    // mp.trigger(`MDC_CallButtonPressed`, id, button);
 
 }
 
@@ -421,7 +412,7 @@ function sendComment(id){
     let comment = $('#writenComment').val();
     console.log(comment);
 
-    mp.trigger(`MDC_SendCallNote`, id, comment);
+    // mp.trigger(`MDC_SendCallNote`, id, comment);
 }
 
 function onRecieveEmployeeData(data){
@@ -444,7 +435,8 @@ function onRecieveMotdData(data){
 
 
 function goToMain() {
-    init();
+    state = 'default';
+    load();
 }
 
 function load(){
