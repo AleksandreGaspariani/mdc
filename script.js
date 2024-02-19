@@ -17,7 +17,7 @@ $(document).ready(()=> {
 })
 
 function closeFromGame(){
-    // mp.trigger('hideMDC'); //testirebisas gadaxaze es metodi
+    mp.trigger('hideMDC'); //testirebisas gadaxaze es metodi
 }
 
 function closeMDC(){
@@ -63,7 +63,7 @@ let callsData = '[{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":5
 function handlePlayerInput() {
     state = 'player'
     let user = $('#player_input').val(); // -> user name which was requested.
-    // mp.trigger('MDC_RequestPlayerData', user); //testirebisas gadaxaze es method
+    mp.trigger('MDC_RequestPlayerData', user); //testirebisas gadaxaze es method
     onRecievePlayerData(playerData); // <- pass data here
 }
 
@@ -132,19 +132,19 @@ function addNote(which){
             // Do your logic here for adding note
             console.log('note '+ text);
 
-            // mp.trigger('MDC_RequestPlayerDataChange', playerName,'note', text);
+            mp.trigger('MDC_RequestPlayerDataChange', playerName,'note', text);
         break;
         case 'wanted':
             $('#noteForAssign').val('').attr('placeholder','Wanted Assigned');
             // Do your logic here for assigning wanted
             console.log('wanted '+ text);
-            // mp.trigger('MDC_RequestPlayerDataChange', playerName, 'wanted', text);
+            mp.trigger('MDC_RequestPlayerDataChange', playerName, 'wanted', text);
         break;
         case 'removeWanted':
             $('#noteForAssign').val('').attr('placeholder','Wanted Removed');
             // Do your logic here for removing wanted
             console.log('removeWanted '+ text);
-            // mp.trigger('MDC_RequestPlayerDataChange', playerName, 'removewanted', text);
+            mp.trigger('MDC_RequestPlayerDataChange', playerName, 'removewanted', text);
         break;
         default:
             break;
@@ -154,7 +154,7 @@ function addNote(which){
 function handleVehicleInput() {
     state = 'vehicle';
     let vehicle = $('#vehicle_input').val(); // -> vehicle license plate which was requested.
-    // mp.trigger('MDC_RequestVehicleData', vehicle); //testirebisas gadaxaze es metodi
+    mp.trigger('MDC_RequestVehicleData', vehicle); //testirebisas gadaxaze es metodi
     onRecieveVehicleData(vehicleData); // <- pass data here
 }
 
@@ -206,7 +206,7 @@ function onRecieveVehicleData(data){
 function handlePropertyInput() {
     state = 'property';
     let propertyAddress = $('#property_input').val(); // -> vehicle license plate which was requested.
-    // mp.trigger('MDC_RequestPropertyData', propertyAddress); //testirebisas gadaxaze es metodi
+    mp.trigger('MDC_RequestPropertyData', propertyAddress); //testirebisas gadaxaze es metodi
     onRecievePropertyData(propertyData); // <- pass data here
 }
 
@@ -237,12 +237,12 @@ function onRecievePropertyData(data){
 function markPropertyLocation() {
     console.log(propertyInfo.Address); // address which supposted to be writen in gps and locate it.
 
-    // mp.trigger('MDC_RequestPropertyLocation', propertyInfo.Address);
+    mp.trigger('MDC_RequestPropertyLocation', propertyInfo.Address);
 }
 
 function handleCallsInput() {
     state = 'calls';
-    // mp.trigger('MDC_RequestAllCallData'); //testirebisas gadaxaze es metodi
+    mp.trigger('MDC_RequestAllCallData'); //testirebisas gadaxaze es metodi
     onRecieveCallsData(callsData); // <- pass data here
 }
 
@@ -314,7 +314,7 @@ function onRecieveCallsData(data){
 function respondOnCall(id, button) {
 
     //console.log('it`s '+id+' call, and button which was clicked is: '+button);
-    // mp.trigger(`MDC_CallButtonPressed`, id, button);
+    mp.trigger(`MDC_CallButtonPressed`, id, button);
 
 }
 
@@ -408,11 +408,10 @@ function closeRemodal(){
 
 function sendComment(id){
 
-    let forCallNum = id;
     let comment = $('#writenComment').val();
     console.log(comment);
 
-    // mp.trigger(`MDC_SendCallNote`, id, comment);
+    mp.trigger(`MDC_SendCallNote`, id, comment);
 }
 
 function onRecieveEmployeeData(data){
