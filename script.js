@@ -140,16 +140,20 @@ function addNote(which){
             $('#noteForAssign').val('').attr('placeholder','Note added');
             // Do your logic here for adding note
             console.log('note '+ text);
+
+            mp.trigger('MDC_RequestPlayerDataChange', $('#playerFullName').val(),'note', text);
         break;
         case 'wanted':
             $('#noteForAssign').val('').attr('placeholder','Wanted Assigned');
             // Do your logic here for assigning wanted
             console.log('wanted '+ text);
+            mp.trigger('MDC_RequestPlayerDataChange', $('#playerFullName').val(), 'wanted', text);
         break;
         case 'removeWanted':
             $('#noteForAssign').val('').attr('placeholder','Wanted Removed');
             // Do your logic here for removing wanted
             console.log('removeWanted '+ text);
+            mp.trigger('MDC_RequestPlayerDataChange', $('#playerFullName').val(), 'removewanted', text);
         break;
         default:
             break;
@@ -180,8 +184,7 @@ function onRecieveVehicleData(data){
         $('#vehicleName').append(vehicleInfo.VehicleName);
         $('#vehicleCodeName').append(vehicleInfo.VehicleCodeName);
         $('#vehiclePlate').append(vehicleInfo.LicensePlate);
-        $('#vehicleColor1').append(vehicleInfo.ColorCode1);
-        $('#vehicleColor2').append(vehicleInfo.ColorCode2);
+        $('#vehicleColor').append(vehicleInfo.ColorName);
 
         if (vehicleInfo.ImpoundPrice > 0) {
             $('#vehicleImpound').append(`
@@ -213,7 +216,7 @@ function handlePropertyInput() {
     state = 'property';
     let propertyAddress = $('#property_input').val(); // -> vehicle license plate which was requested.
     mp.trigger('MDC_RequestPropertyData', propertyAddress); //testirebisas gadaxaze es metodi
-    //onRecievePropertyData(propertyData); // <- pass data here
+    onRecievePropertyData(propertyData); // <- pass data here
 }
 
 function onRecievePropertyData(data){
@@ -242,6 +245,8 @@ function onRecievePropertyData(data){
 
 function markPropertyLocation() {
     console.log(propertyInfo.Address); // address which supposted to be writen in gps and locate it.
+
+    mp.trigger('MDC_RequestPropertyLocation', propertyInfo.Address);
 }
 
 function handleCallsInput() {
@@ -502,7 +507,7 @@ function handle(param) {
                     <li>Veh Name: <span class='text-info' id='vehicleName'></span></li>
                     <li>Veh Code Name: <span class='text-info' id='vehicleCodeName'></span></li>
                     <li>Veh Plate: <span class='text-info' id='vehiclePlate'></span></li>
-                    <li>Car Color: <span class='text-info' id='vehicleColor1'></span> | <span class='text-info' id='vehicleColor2'></span></li>
+                    <li>Car Color: <span class='text-info' id='vehicleColor'></span></li>
                 </ul>
             </div>
 
