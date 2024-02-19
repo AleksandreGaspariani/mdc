@@ -88,7 +88,7 @@ function onRecievePlayerData(data){
 
         // insert information into fields.
         $('#playerFullName').empty().append(`<p>`+userInfo.FullName+`</p>`);
-        $('#playerAge').empty().append(userInfo.Age);
+        $('#playerAge').empty().append(` ` + userInfo.Age);
         $('#playerGender').empty().append(userInfo.Sex);
         userInfo.Avatar !== null ? $('#playerProfileImg').attr("src",userInfo.Avatar) : $('#playerProfileImg').attr("src", 'https://p1.hiclipart.com/preview/323/743/633/icon-person-icon-design-symbol-avatar-silhouette-character-cartoon-head-png-clipart.jpg');
         $('#playerPhoneNumber').empty().append(userInfo.PhoneNumber);
@@ -182,7 +182,7 @@ function handlePropertyInput() {
     state = 'property';
     let propertyAddress = $('#property_input').val(); // -> vehicle license plate which was requested.
     mp.trigger('MDC_RequestPropertyData', propertyAddress); //testirebisas gadaxaze es metodi
-    onRecievePropertyData(propertyData); // <- pass data here
+    //onRecievePropertyData(propertyData); // <- pass data here
 }
 
 function onRecievePropertyData(data){
@@ -216,7 +216,7 @@ function markPropertyLocation() {
 function handleCallsInput() {
     state = 'calls';
     mp.trigger('MDC_RequestAllCallData'); //testirebisas gadaxaze es metodi
-//    onRecieveCallsData(callsData); // <- pass data here
+    onRecieveCallsData(callsData); // <- pass data here
 }
 
 function onRecieveCallsData(data){
@@ -236,14 +236,14 @@ function onRecieveCallsData(data){
             let tempId = element.ID;
             let buttons = element.CallButtons;
             $('#callsTab').append(`
-                <div class='ps-4 w-auto call-item d-flex flex-column justify-content-start align-items-start rounded-2' ondblclick='currentCallInformation(`+tempId+`)'> 
+                <div class='ps-4 w-auto call-item d-flex flex-column justify-content-start align-items-start rounded-2' onclick='currentCallInformation(`+tempId+`)'> 
                     <p class='text-info'>Number Owner: <span class='call-number-owner'>`+element.Caller+`</span></p>
                     <p class='text-info'>From: <span class='call-from'>`+element.CallerNumber+`</span></p>
                     <p class='text-info'>Location <span class='call-location'>`+element.Location+`</span></p>
                     <p class='text-info'>Status: <span class='call-status'>`+element.Status+`</span></p>
                     <small class='text-info'>Date: <span class='c'>`+element.Date+`</span> </small>
                     <div class='position-relative d-flex flex-column justify-content-start align-items-start'>
-                        <small>Call responds</small>
+                        <small>Responding units</small>
                         <div class='d-flex w-100 flex-wrap callRespond-`+tempId+`' style='gap: 10px;'>
                             
                         </div>
@@ -313,7 +313,7 @@ function currentCallInformation(callNum) {
     // Collect information
 
     //let data = '{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":550612,"Location":"Somewhere in New York","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[{"Unit":"L201","OfficerNames":"Bondo Gaoxrebuli"},{"Unit":"A204","OfficerNames":"Jonathan Woods, Veronica Woods"}],"CallNotes":[{"Name":"Andrew Garfield","Text":"vigaca ragacas afuchebs ubanshi pirvel sartulze","Date":"26/01/2020 19:11:45 (( 26/01/2024 22:12:19 ))"},{"Name":"Jonathan Woods","Text":"adgilze mivedit ver vipovet caller, verc damrgvevi, tumca sheinishna shavi infernus misvlisas romelic samxretit daidzra","Date":"26/01/2020 19:12:25 (( 26/01/2024 22:13:08 ))"}]}'; // აქ
-    MP.trigger('MDC_RequestCallData',callNum);
+   mp.trigger('MDC_RequestCallData',callNum);
 
     //insertCurrentCallInformation(data);
 }
@@ -328,21 +328,21 @@ function insertCurrentCallInformation(data){
         <p>Number Owner: <span>`+tempData.Caller+`</span></p>
         <p>Caller Location: <span>`+tempData.Location+`</span></p>
         <p>Status: <span>`+tempData.Status+`</span></p>
-        <p>Call responds</p>
+        <p>Responding units</p>
         <div class='d-flex w-100 flex-wrap remodalRespondersList' style='font-size: 18px !important; gap: 10px;overflow-x: auto;'>
 
         </div>
         <hr>
-        <p>Description: </p>
+        <p>Description </p>
         <small>`+tempData.CallNotes[0].Text+`</small>
         <hr>
-        <p>Text respond on calls</p>
+        <p>Call notes</p>
         <div class="h-auto px-3 py-1 w-100 d-flex flex-column justify-content-start align-items-start commentList c_scroll">
             
         </div>
         <!-- Write Comment -->
         <div class="w-100">
-            <textarea name="comment" id="writenComment" cols="60" class="w-100 h-25 c_scroll" placeholder="Type your comment here"></textarea>
+            <textarea name="comment" id="writenComment" cols="60" class="w-100 h-25 c_scroll" placeholder="Type a note here"></textarea>
             <button class="btn btn-outline-light w-100" onclick="sendComment(`+tempData.ID+`)">Send</button>
         </div>
         <!--  -->
@@ -384,6 +384,8 @@ function sendComment(id){
     let forCallNum = id;
     let comment = $('#writenComment').val();
     console.log(comment);
+
+    mp.trigger(`MDC_SendCallNote`, id, comment);
 }
 
 function onRecieveEmployeeData(data){
@@ -462,7 +464,7 @@ function handle(param) {
             <hr>
 
             <div class='w-100'>
-                <h4>Information: </h4>
+                <h4>Information</h4>
                 <ul class='m-0 p-0'>
                     <li>Vehicle VIN Code: <span class='text-info' id='vehicleVIN'></span></li>
                     <li>Owner: <span class='text-info' id='vehicleOwner'></span></li>
@@ -479,10 +481,10 @@ function handle(param) {
                 <div class='d-flex flex-column w-50'>
 
                     <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                        <h4 class='mb-3'>Previous Owners: </h4>
+                        <h4 class='mb-3'>Previous Owners</h4>
                         <div style='max-height: 70px;' id='records-out-div' class='c_scroll'>
                             <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='vehiclePreviousOwners'>
-                                
+                                No previous owners
                             </ul>
                         </div>
                     </div>
@@ -492,19 +494,19 @@ function handle(param) {
                 <div class='d-flex flex-column w-50'>
 
                     <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                        <h4 class='mb-3'>Impound Information: </h4>
+                        <h4 class='mb-3'>Impound Information</h4>
                         <div style='max-height: 120px;' class='c_scroll'>
                             <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='vehicleImpound'>
-
+                                Not at impound
                             </ul>
                         </div>
                     </div>
 
                     <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                        <h4 class='mb-3'>Vehicle assigned to : </h4>
+                        <h4 class='mb-3'>Vehicle assigned to</h4>
                         <div style='max-height: 120px;' class='c_scroll'>
                             <ul class='m-0 p-0 ms-5 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal-leading-zero;' id='vehicleAssignedTo'>
-                                
+                                No assignation info found
                             </ul>
                         </div>
                     </div>
@@ -529,7 +531,7 @@ function handle(param) {
                 $('#content').empty().append(`
                 <div class='d-flex flex-column align-items-center justify-content-center'>
                     <div class='d-flex flex-column justify-content-center align-items-center m-5 my-2' style='gap: 5px;'> 
-                        <label for=''>Find Player</label>
+                        <label for=''>Find Person</label>
                         <div class='d-flex align-items-center'> 
                             <input type='text' placeholder='Type Name' class='form-input form-control' id='player_input'>
                             <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
@@ -552,7 +554,7 @@ function handle(param) {
                             </span>
                         </p>
                         <div class='d-flex flex-column align-items-start justify-content-center m-5 my-3' style='gap: 5px;'>
-                            <label for=''>Find Player</label>
+                            <label for=''>Find Person</label>
                             <div class='d-flex align-items-center'> 
                                 <input type='text' placeholder='Type Name' class='form-input form-control' id='player_input'>
                                 <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
@@ -568,7 +570,7 @@ function handle(param) {
                         <div class='d-flex flex-column ms-2'>
                             <p style='font-family: VT323, monospace;' id='playerFullName' class='text-info'></p>
                             <div class='d-flex justify-content-start align-items-start'>
-                                <p style='font-family: VT323, monospace;' class='p-0 m-0'>Age: </p>
+                                <p style='font-family: VT323, monospace;' class='p-0 m-0'>Age: </p> 
                                 <span class='p-0 m-0 text-info' id='playerAge'></span>
                             </div>
                             <p style='font-family: VT323, monospace;'>Sex: <span class='m-0 p-0 text-info' id='playerGender'></span></p>
@@ -585,7 +587,7 @@ function handle(param) {
                     <div class='d-flex flex-column w-50'>
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                            <h4 class='mb-3'>Licenses: </h4>
+                            <h4 class='mb-3'>Licenses </h4>
                             <div style='max-height: 120px;' class='c_scroll'>
                                 <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start text-info' style='width: 300px; list-style-type: none;' id='playerLicenses'>
                                     
@@ -594,7 +596,7 @@ function handle(param) {
                         </div>
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                            <h4 class='mb-3'>Records: </h4>
+                            <h4 class='mb-3'>Records </h4>
                             <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
                                 <ul class='m-0 p-0 ms-2 d-flex flex-column text-info justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerRecords'>
                                     
@@ -603,7 +605,7 @@ function handle(param) {
                         </div>
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                            <h4 class='mb-3'>Tickets: </h4>
+                            <h4 class='mb-3'>Tickets </h4>
                             <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
                                 <ul class='m-0 p-0 ms-2 d-flex flex-column text-info justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerTickets'>
                                     
@@ -616,7 +618,7 @@ function handle(param) {
                     <div class='d-flex flex-column w-50'>
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                            <h4 class='mb-3'>Propertys: </h4>
+                            <h4 class='mb-3'>Propertys </h4>
                             <div style='max-height: 120px;' class='c_scroll'>
                                 <ul class='m-0 p-0 ms-2 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerProperties'>
                                     
@@ -625,7 +627,7 @@ function handle(param) {
                         </div>
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                            <h4 class='mb-3'>Vehicles: </h4>
+                            <h4 class='mb-3'>Vehicles </h4>
                             <div style='max-height: 120px;' class='c_scroll'>
                                 <ul class='m-0 p-0 ms-4 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal;' id='playerVehicles'>
                                     
@@ -634,7 +636,7 @@ function handle(param) {
                         </div>
 
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                            <h4 class='mb-3'>Notes: </h4>
+                            <h4 class='mb-3'>Notes </h4>
                             <div style='max-height: 120px;' class='c_scroll'>
                                 <ul class='m-0 p-0 ms-2 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerNotes'>
 
@@ -716,7 +718,7 @@ function handle(param) {
                     <hr>
 
                     <div class='w-100'>
-                        <h4>Information: </h4>
+                        <h4>Information </h4>
                         <ul class='m-0 p-0'>
                             <li>Property Address: <span class='text-info' id='propertyAddress'></span></li>
                             <li>Owner: <span class='text-info' id='propertyOwner'></span></li>
@@ -728,7 +730,7 @@ function handle(param) {
                         <div class='d-flex flex-column w-100'>
 
                             <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                                <h4 class='mb-3'>Previous Owners: </h4>
+                                <h4 class='mb-3'>Previous Owners </h4>
                                 <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
                                     <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='propertyPreviousOwners'>
                                         
@@ -746,8 +748,8 @@ function handle(param) {
         default:
             $('#content').empty().append(`
                 <div class='w-100 h-100 position-relative d-flex flex-column justify-content-center align-items-center'>
-                    <img src='imgs/logo.webp' width='250px' height='auto'>
-                    <h1>Police Department MDC</h1>
+                    <img src='imgs/logo.png' width='250px' height='auto'>
+                    <h1>Sheriff's Department</h1><h1>Mobile Data Computer</h1>
                 </div>
             `);
             break;
