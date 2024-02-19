@@ -125,6 +125,37 @@ function onRecievePlayerData(data){
     }
 }
 
+function addNote(which){
+
+    let text = $('#noteForAssign').val();
+    let playerName = userInfo.FullName; // mtamashis saxeli vizec unda ganxorcieldes note s damateba an rame..
+
+    if (text.length < 10) {
+        $('#noteForAssign').val('').attr('placeholder','Min 10 Characters required');
+        return false;
+    }
+
+    switch (which) {
+        case 'note':
+            $('#noteForAssign').val('').attr('placeholder','Note added');
+            // Do your logic here for adding note
+            console.log('note '+ text);
+        break;
+        case 'wanted':
+            $('#noteForAssign').val('').attr('placeholder','Wanted Assigned');
+            // Do your logic here for assigning wanted
+            console.log('wanted '+ text);
+        break;
+        case 'removeWanted':
+            $('#noteForAssign').val('').attr('placeholder','Wanted Removed');
+            // Do your logic here for removing wanted
+            console.log('removeWanted '+ text);
+        break;
+        default:
+            break;
+    }
+}
+
 function handleVehicleInput() {
     state = 'vehicle';
     let vehicle = $('#vehicle_input').val(); // -> vehicle license plate which was requested.
@@ -576,6 +607,15 @@ function handle(param) {
                             <p style='font-family: VT323, monospace;'>Sex: <span class='m-0 p-0 text-info' id='playerGender'></span></p>
                             <p style='font-family: VT323, monospace;'>Phone: <span class='m-0 p-0 text-info' id='playerPhoneNumber'></span></p>
                             <p style='font-family: VT323, monospace;'>Born At: <span class='m-0 p-0 text-info' id='playerBornDate'></span></p>
+                        </div>
+                    </div>
+
+                    <div class='d-flex flex-column justify-content-end align-items-end w-100'>
+                        <div class='w-50 py-5 px-3'>
+                            <textarea name='note' id='noteForAssign' class='w-100 px-2 py-1 rounded' style='min-height: 90px;outline: none;'></textarea>
+                            <button class='btn btn-outline-info w-100 mt-1 text-start' onclick='addNote("note")'>Add Note</button>
+                            <button class='btn btn-outline-danger w-100 my-1 text-start' onclick='addNote("wanted")'>Put In Wanted</button>
+                            <button class='btn btn-outline-info w-100 text-start' onclick='addNote("removeWanted")'>Remove From Wanted</button>
                         </div>
                     </div>
                     

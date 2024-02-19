@@ -41,7 +41,117 @@
                     </ul>
                 </aside>
                 <section class="position-relative bg-dark h-100 w-100 text-white-50 py-5 px-3 c_scroll" id="content" style='max-height: 100%; min-height: 100%; overflow-y: scroll'>
-                    
+                    <div class='d-flex justify-content-start align-items-start'>
+                        <div>
+                            <p class='d-flex justify-content-start align-items-start text-danger' onclick='goToMain()' style='cursor: pointer'>
+                                Go Back
+                                <span class='material-symbols-outlined text-danger'>
+                                    reply
+                                </span>
+                            </p>
+                            <div class='d-flex flex-column align-items-start justify-content-center m-5 my-3' style='gap: 5px;'>
+                                <label for=''>Find Person</label>
+                                <div class='d-flex align-items-center'> 
+                                    <input type='text' placeholder='Type Name' class='form-input form-control' id='player_input'>
+                                    <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
+                                        chevron_right
+                                    </span>
+                                </div>
+                            </div> 
+                            <div class='d-flex flex-column justify-content-start align-items-start'>   
+                                <p id='playerWanted' class='m-0 p-0 text-danger'></p>
+                                <small id='playerWantedText' class='m-0 p-0 text-danger playerWantedText'></small>
+                                <img src='https://p1.hiclipart.com/preview/323/743/633/icon-person-icon-design-symbol-avatar-silhouette-character-cartoon-head-png-clipart.jpg' alt='' width='120px' height='auto' id='playerProfileImg'></img>
+                            </div>
+                            <div class='d-flex flex-column ms-2'>
+                                <p style='font-family: VT323, monospace;' id='playerFullName' class='text-info'></p>
+                                <div class='d-flex justify-content-start align-items-start'>
+                                    <p style='font-family: VT323, monospace;' class='p-0 m-0'>Age: </p> 
+                                    <span class='p-0 m-0 text-info' id='playerAge'></span>
+                                </div>
+                                <p style='font-family: VT323, monospace;'>Sex: <span class='m-0 p-0 text-info' id='playerGender'></span></p>
+                                <p style='font-family: VT323, monospace;'>Phone: <span class='m-0 p-0 text-info' id='playerPhoneNumber'></span></p>
+                                <p style='font-family: VT323, monospace;'>Born At: <span class='m-0 p-0 text-info' id='playerBornDate'></span></p>
+                            </div>
+                        </div>
+
+                        <div class='d-flex flex-column justify-content-end align-items-end w-100'>
+                            <div class='w-50 py-5 px-3'>
+                                <textarea name='note' id='noteForAssign' class='w-100 px-2 py-1 rounded' style='min-height: 90px;outline: none;'></textarea>
+                                <button class='btn btn-outline-info w-100 mt-1 text-start' onclick='addNote("note")'>Add Note</button>
+                                <button class='btn btn-outline-danger w-100 my-1 text-start' onclick='addNote("wanted")'>Put In Wanted</button>
+                                <button class='btn btn-outline-info w-100 text-start' onclick='addNote("removeWanted")'>Remove From Wanted</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                       
+                    <hr>
+                    <div class='d-flex w-100 position-relative'>
+    
+                        <div class='d-flex flex-column w-50'>
+    
+                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
+                                <h4 class='mb-3'>Licenses </h4>
+                                <div style='max-height: 120px;' class='c_scroll'>
+                                    <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start text-info' style='width: 300px; list-style-type: none;' id='playerLicenses'>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+    
+                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
+                                <h4 class='mb-3'>Records </h4>
+                                <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
+                                    <ul class='m-0 p-0 ms-2 d-flex flex-column text-info justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerRecords'>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+    
+                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
+                                <h4 class='mb-3'>Tickets </h4>
+                                <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
+                                    <ul class='m-0 p-0 ms-2 d-flex flex-column text-info justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerTickets'>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+    
+                        </div>
+    
+                        <div class='d-flex flex-column w-50'>
+    
+                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
+                                <h4 class='mb-3'>Propertys </h4>
+                                <div style='max-height: 120px;' class='c_scroll'>
+                                    <ul class='m-0 p-0 ms-2 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerProperties'>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+    
+                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
+                                <h4 class='mb-3'>Vehicles </h4>
+                                <div style='max-height: 120px;' class='c_scroll'>
+                                    <ul class='m-0 p-0 ms-4 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal;' id='playerVehicles'>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+    
+                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
+                                <h4 class='mb-3'>Notes </h4>
+                                <div style='max-height: 120px;' class='c_scroll'>
+                                    <ul class='m-0 p-0 ms-2 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerNotes'>
+    
+                                    </ul>
+                                </div>
+                            </div>
+    
+                        </div>
+    
+                    </div>
                 </section>
                 
             </div>
