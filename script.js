@@ -180,7 +180,7 @@ function onRecieveVehicleData(data){
         if (vehicleInfo.ImpoundPrice > 0) {
             $('#vehicleImpound').append(`
                 <small class='m-0 p-0 text-danger'>ავტომობილი იმყოფება საჯარიმოზე.</small>
-                <p class='m-0 p-0 text-info'>საჯარიმოზე გადაყვანის მიზეზი: `+vehicleInfo.ImpoundReason+` | `+vehicleInfo.ImpoundPrice+`$</p>
+                <p class='m-0 p-0 text-dark'>საჯარიმოზე გადაყვანის მიზეზი: `+vehicleInfo.ImpoundReason+` | `+vehicleInfo.ImpoundPrice+`$</p>
             `)
         // }else {
         //     $('#vehicleImpound').append(`
@@ -190,13 +190,13 @@ function onRecieveVehicleData(data){
 
         vehicleInfo.PreviousOwners.forEach(element => {
             $('#vehiclePreviousOwners').append(`
-                <li class='text-info'>`+element+`</li>
+                <li class='text-dark'>`+element+`</li>
             `);
         });
 
         vehicleInfo.AssignedTo.forEach(element => {
             $('#vehicleAssignedTo').append(`
-                <li class='text-info'>`+element+`</li>
+                <li class='text-dark'>`+element+`</li>
             `);
         });
 
@@ -228,7 +228,7 @@ function onRecievePropertyData(data){
 
         propertyInfo.PreviousOwners.forEach(element => {
             $('#propertyPreviousOwners').append(`
-                <li class='text-info'>`+element+`</li>
+                <li class='text-dark'>`+element+`</li>
             `);
         });
     }
@@ -263,12 +263,12 @@ function onRecieveCallsData(data){
             let tempId = element.ID;
             let buttons = element.CallButtons;
             $('#callsTab').append(`
-                <div class='ps-4 w-auto call-item d-flex flex-column justify-content-start align-items-start rounded-2' onclick='currentCallInformation(`+tempId+`)'> 
-                    <p class='text-info'>Number Owner: <span class='call-number-owner'>`+element.Caller+`</span></p>
-                    <p class='text-info'>From: <span class='call-from'>`+element.CallerNumber+`</span></p>
-                    <p class='text-info'>Location <span class='call-location'>`+element.Location+`</span></p>
-                    <p class='text-info'>Status: <span class='call-status'>`+element.Status+`</span></p>
-                    <small class='text-info'>Date: <span class='c'>`+element.Date+`</span> </small>
+                <div class='ps-4 py-3 w-auto call-item d-flex flex-column justify-content-start align-items-start rounded-2' onclick='currentCallInformation(`+tempId+`)'> 
+                    <p class='text-info'>Number Owner: <span class='call-number-owner text-black'>`+element.Caller+`</span></p>
+                    <p class='text-info'>From: <span class='call-from text-black'>`+element.CallerNumber+`</span></p>
+                    <p class='text-info'>Location <span class='call-location text-black'>`+element.Location+`</span></p>
+                    <p class='text-info'>Status: <span class='call-status text-black'>`+element.Status+`</span></p>
+                    <small class='text-info'>Date: <span class='c text-black'>`+element.Date+`</span> </small>
                     <div class='position-relative d-flex flex-column justify-content-start align-items-start'>
                         <small>Responding units</small>
                         <div class='d-flex w-100 flex-wrap callRespond-`+tempId+`' style='gap: 10px;'>
@@ -287,7 +287,7 @@ function onRecieveCallsData(data){
                 element.CallResponders.forEach(element => {
                     
                     $('.callRespond-'+tempId+'').append(`
-                        <span class='btn py-0 px-3 rounded-3 c_badge d-flex flex-column justify-content-start align-items-start'>
+                        <span class='btn py-0 px-3 rounded-3 c_badge bg-dark text-white d-flex flex-column justify-content-start align-items-start'>
                             <p class='m-0 p-0'>`+element.Unit+`</p>
                         </span>
                     `)
@@ -320,17 +320,17 @@ function respondOnCall(id, button) {
 
 function appendRemodalForCalls(){
     $('#callsTab').append(`
-        <div class="w-75 h-75 position-absolute p-2 m-0 c_scroll d-none" style="right: 10%; top: 10%;" id="remodal">
+        <div class="w-75 h-75 position-absolute m-0 c_scroll d-none" style="right: 10%; top: 10%;" id="remodal">
             <!-- Close Tab -->
-            <div class="d-flex justify-content-end align-items-center border-bottom">
-                <span class="material-symbols-outlined" onclick="closeRemodal()" style="cursor: pointer;">
-                    close
-                </span>
-            </div>
+                <div class="d-flex justify-content-end align-items-center p-2 border-bottom" style='background: black;'>
+                    <span class="material-symbols-outlined" onclick="closeRemodal()" style="cursor: pointer; color: #b82222" class='m-2'>
+                        close
+                    </span>
+                </div>
             <!--  -->
 
             <div class="d-flex flex-column text-white p-5" id='remodalInfoTab'>
-            
+
             </div>
         </div>
     `)
@@ -339,10 +339,10 @@ function appendRemodalForCalls(){
 function currentCallInformation(callNum) {
     // Collect information
 
-    //let data = '{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":550612,"Location":"Somewhere in New York","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[{"Unit":"L201","OfficerNames":"Bondo Gaoxrebuli"},{"Unit":"A204","OfficerNames":"Jonathan Woods, Veronica Woods"}],"CallNotes":[{"Name":"Andrew Garfield","Text":"vigaca ragacas afuchebs ubanshi pirvel sartulze","Date":"26/01/2020 19:11:45 (( 26/01/2024 22:12:19 ))"},{"Name":"Jonathan Woods","Text":"adgilze mivedit ver vipovet caller, verc damrgvevi, tumca sheinishna shavi infernus misvlisas romelic samxretit daidzra","Date":"26/01/2020 19:12:25 (( 26/01/2024 22:13:08 ))"}]}'; // აქ
-   mp.trigger('MDC_RequestCallData',callNum);
+    // let data = '{"ID":4,"Status":1,"Caller":"Andrew Garfield","CallerNumber":550612,"Location":"Somewhere in New York","Date":"26/01/2020 18:31:05 (( 26/01/2024 21:32:03 ))","CallResponders":[{"Unit":"L201","OfficerNames":"Bondo Gaoxrebuli"},{"Unit":"A204","OfficerNames":"Jonathan Woods, Veronica Woods"}],"CallNotes":[{"Name":"Andrew Garfield","Text":"vigaca ragacas afuchebs ubanshi pirvel sartulze","Date":"26/01/2020 19:11:45 (( 26/01/2024 22:12:19 ))"},{"Name":"Jonathan Woods","Text":"adgilze mivedit ver vipovet caller, verc damrgvevi, tumca sheinishna shavi infernus misvlisas romelic samxretit daidzra","Date":"26/01/2020 19:12:25 (( 26/01/2024 22:13:08 ))"}]}'; // აქ
+    mp.trigger('MDC_RequestCallData',callNum);
 
-    //insertCurrentCallInformation(data);
+    insertCurrentCallInformation(data);
 }
 
 function insertCurrentCallInformation(data){
@@ -369,7 +369,7 @@ function insertCurrentCallInformation(data){
         </div>
         <!-- Write Comment -->
         <div class="w-100">
-            <textarea name="comment" id="writenComment" cols="60" class="w-100 h-25 c_scroll" placeholder="Type a note here"></textarea>
+            <textarea name="comment" id="writenComment" cols="60" class="w-100 h-25 c_scroll bg-white text-dark rounded-2" placeholder="Type a note here"></textarea>
             <button class="btn btn-outline-light w-100" onclick="sendComment(`+tempData.ID+`)">Send</button>
         </div>
         <!--  -->
@@ -409,7 +409,6 @@ function closeRemodal(){
 function sendComment(id){
 
     let comment = $('#writenComment').val();
-    console.log(comment);
 
     mp.trigger(`MDC_SendCallNote`, id, comment);
 }
@@ -439,7 +438,6 @@ function goToMain() {
 }
 
 function load(){
-    console.log(vehicleInfo , vehicleData);
     handle(state);
 }
 
@@ -450,16 +448,15 @@ function home() {
 
 function handle(param) {
     state = param;
-    console.log(vehicleInfo , vehicleData);
     switch (state) {
         case 'vehicle':
 
             if (vehicleInfo.length < 1 || vehicleInfo.VINCode === null || vehicleInfo.VINCode === undefined) {
                 $('#content').empty().append(`
-                <div class='d-flex flex-column align-items-center justify-content-center m-5' style='gap: 5px;'>
+                <div class='d-flex flex-column align-items-center justify-content-center my-5' style='gap: 5px;'>
                     <label for=''>Find Vehicle by PN</label>
-                    <div class='d-flex align-items-center'> 
-                        <input type='text' placeholder='Type PN' class='form-input form-control' id='vehicle_input' >
+                    <div class='d-flex align-items-center' style='width: 200px'> 
+                        <input type='text' placeholder='Type PN' class='form-input form-control w-100' id='vehicle_input' >
                         <span class='material-symbols-outlined m-0 p-0' id='find_vehicle_button' onclick='handleVehicleInput()' style='cursor: pointer'>
                             chevron_right
                         </span>
@@ -468,7 +465,7 @@ function handle(param) {
                 `);
             }else {
                 $('#content').empty().append(`
-                <div class='d-flex justify-content-start align-items-start'>
+                <div class='d-flex flex-column justify-content-start align-items-start'>
                 <div>
                     <p class='d-flex justify-content-center text-danger align-items-center' onclick='goToMain()' style='cursor:pointer'>
                         Go Back
@@ -480,8 +477,8 @@ function handle(param) {
                 </div>
                 <div class='d-flex flex-column align-items-start justify-content-start m-5 ms-0'>
                     <label for=''>Find Vehicle by PN</label>
-                    <div class='d-flex align-items-center'> 
-                        <input type='text' placeholder='Type PN' class='form-input form-control' id='vehicle_input' >
+                    <div class='d-flex align-items-center' style='width: 200px'> 
+                        <input type='text' placeholder='Type PN' class='form-input form-control w-100' id='vehicle_input' >
                         <span class='material-symbols-outlined m-0 p-0' id='find_vehicle_button' onclick='handleVehicleInput()' style='cursor: pointer'>
                             chevron_right
                         </span>
@@ -558,10 +555,10 @@ function handle(param) {
             if (userInfo.length < 1 || userInfo.FullName === null) {
                 $('#content').empty().append(`
                 <div class='d-flex flex-column align-items-center justify-content-center'>
-                    <div class='d-flex flex-column justify-content-center align-items-center m-5 my-2' style='gap: 5px;'> 
+                    <div class='d-flex flex-column justify-content-center align-items-center my-5' style='gap: 5px;'> 
                         <label for=''>Find Person</label>
-                        <div class='d-flex align-items-center'> 
-                            <input type='text' placeholder='Type Name' class='form-input form-control' id='player_input'>
+                        <div class='d-flex align-items-center' style='width: 200px'> 
+                            <input type='text' placeholder='Type Name' class='form-input form-control w-100' id='player_input'>
                             <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
                                 chevron_right
                             </span>
@@ -581,10 +578,10 @@ function handle(param) {
                                 reply
                             </span>
                         </p>
-                        <div class='d-flex flex-column align-items-start justify-content-center m-5 my-3' style='gap: 5px;'>
+                        <div class='d-flex flex-column align-items-start justify-content-center my-5' style='gap: 5px;'>
                             <label for=''>Find Person</label>
-                            <div class='d-flex align-items-center'> 
-                                <input type='text' placeholder='Type Name' class='form-input form-control' id='player_input'>
+                            <div class='d-flex align-items-center' style='width: 200px'> 
+                                <input type='text' placeholder='Type Name' class='form-input form-control w-100' id='player_input'>
                                 <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
                                     chevron_right
                                 </span>
@@ -596,20 +593,20 @@ function handle(param) {
                             <img src='https://p1.hiclipart.com/preview/323/743/633/icon-person-icon-design-symbol-avatar-silhouette-character-cartoon-head-png-clipart.jpg' alt='' width='120px' height='auto' id='playerProfileImg'></img>
                         </div>
                         <div class='d-flex flex-column ms-2'>
-                            <p style='font-family: VT323, monospace;' id='playerFullName' class='text-info'></p>
+                            <p style='font-family: VT323, monospace;' id='playerFullName' class='text-dark'></p>
                             <div class='d-flex justify-content-start align-items-start'>
                                 <p style='font-family: VT323, monospace;' class='p-0 m-0'>Age: </p> 
-                                <span class='p-0 m-0 text-info' id='playerAge'></span>
+                                <span class='p-0 m-0 text-dark' id='playerAge'></span>
                             </div>
-                            <p style='font-family: VT323, monospace;'>Sex: <span class='m-0 p-0 text-info' id='playerGender'></span></p>
-                            <p style='font-family: VT323, monospace;'>Phone: <span class='m-0 p-0 text-info' id='playerPhoneNumber'></span></p>
-                            <p style='font-family: VT323, monospace;'>Born At: <span class='m-0 p-0 text-info' id='playerBornDate'></span></p>
+                            <p style='font-family: VT323, monospace;'>Sex: <span class='m-0 p-0 text-dark' id='playerGender'></span></p>
+                            <p style='font-family: VT323, monospace;'>Phone: <span class='m-0 p-0 text-dark' id='playerPhoneNumber'></span></p>
+                            <p style='font-family: VT323, monospace;'>Born At: <span class='m-0 p-0 text-dark' id='playerBornDate'></span></p>
                         </div>
                     </div>
 
                     <div class='d-flex flex-column justify-content-end align-items-end w-100'>
                         <div class='w-50 py-5 px-3'>
-                            <textarea name='note' id='noteForAssign' class='w-100 px-2 py-1 rounded' style='min-height: 90px;outline: none;'></textarea>
+                            <textarea name='note' id='noteForAssign' class='w-100 px-2 py-1 rounded' style='min-height: 90px;outline: none;' placeholder='Add some description for current action.'></textarea>
                             <button class='btn btn-outline-info w-100 mt-1 text-start' onclick='addNote("note")'>Add Note</button>
                             <button class='btn btn-outline-danger w-100 my-1 text-start' onclick='addNote("wanted")'>Put In Wanted</button>
                             <button class='btn btn-outline-info w-100 text-start' onclick='addNote("removeWanted")'>Remove From Wanted</button>
@@ -626,7 +623,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Licenses </h4>
                             <div style='max-height: 120px;' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start text-info' style='width: 300px; list-style-type: none;' id='playerLicenses'>
+                                <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start text-dark' style='width: 300px; list-style-type: none;' id='playerLicenses'>
                                     
                                 </ul>
                             </div>
@@ -635,7 +632,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Records </h4>
                             <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-2 d-flex flex-column text-info justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerRecords'>
+                                <ul class='m-0 p-0 ms-2 d-flex flex-column text-dark justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerRecords'>
                                     
                                 </ul>
                             </div>
@@ -644,7 +641,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Tickets </h4>
                             <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-2 d-flex flex-column text-info justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerTickets'>
+                                <ul class='m-0 p-0 ms-2 d-flex flex-column text-dark justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerTickets'>
                                     
                                 </ul>
                             </div>
@@ -657,7 +654,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Propertys </h4>
                             <div style='max-height: 120px;' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-2 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerProperties'>
+                                <ul class='m-0 p-0 ms-2 d-flex text-dark flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerProperties'>
                                     
                                 </ul>
                             </div>
@@ -666,7 +663,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Vehicles </h4>
                             <div style='max-height: 120px;' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-4 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal;' id='playerVehicles'>
+                                <ul class='m-0 p-0 ms-4 d-flex text-dark flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal;' id='playerVehicles'>
                                     
                                 </ul>
                             </div>
@@ -675,7 +672,7 @@ function handle(param) {
                         <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                             <h4 class='mb-3'>Notes </h4>
                             <div style='max-height: 120px;' class='c_scroll'>
-                                <ul class='m-0 p-0 ms-2 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerNotes'>
+                                <ul class='m-0 p-0 ms-2 d-flex text-dark flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerNotes'>
 
                                 </ul>
                             </div>
@@ -715,9 +712,9 @@ function handle(param) {
             if (propertyInfo.length < 1) {
                 $('#content').empty().append(`
                 <div class='d-flex flex-column align-items-center justify-content-center'>
-                    <div class='d-flex justify-content-center align-items-center m-5' style='gap: 5px;'> 
+                    <div class='d-flex justify-content-center align-items-center m-5' style='gap: 5px; width: 200px;'> 
                         <label for=''>Find Property by Address</label>
-                        <input type='text' placeholder='Type Address' class='form-input' id='property_input'>
+                        <input type='text' placeholder='Type Address' class='form-input w-100' id='property_input'>
                         <span class='material-symbols-outlined m-0 p-0' id='find_property_button' onclick='handlePropertyInput()' style='cursor: pointer'>
                             chevron_right
                         </span>
@@ -739,15 +736,20 @@ function handle(param) {
                         <div class='d-flex w-100 flex-row align-items-center justify-content-center m-5 ms-0'>
                             <div class='w-75 d-flex flex-column'>
                                 <label for='' class='text-start'>Find Property information by address</label>
-                                <div class='d-flex justify-content-start align-items-center w-50'>
-                                    <input type='text' placeholder='Type Address' class='form-control' id='property_input' style='width: 100%;'>
+                                <div class='d-flex justify-content-start align-items-center' style='width: 200px;'>
+                                    <input type='text' placeholder='Type Address' class='form-control w-100' id='property_input' style='width: 100%;'>
                                     <span class='material-symbols-outlined m-0 p-0' id='find_vehicle_button' onclick='handlePropertyInput()' style='cursor: pointer'>
                                         chevron_right
                                     </span>
                                 </div>
                             </div>
                             <div class='w-25 d-flex justify-content-center align-items-center'>
-                                <button class='btn btn-outline-info' onclick='markPropertyLocation()'>Mark Location</button>
+                                <button class='btn d-flex flex-column justify-content-center align-items-center btn-outline-dark' onclick='markPropertyLocation()' style='border: none !important;'>
+                                    <span class="material-symbols-outlined">
+                                        share_location
+                                    </span>
+                                    <small>Mark Location</small>
+                                </button>
                             </div>
                         </div> 
                     </div>
@@ -769,7 +771,7 @@ function handle(param) {
                             <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
                                 <h4 class='mb-3'>Previous Owners </h4>
                                 <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
-                                    <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='propertyPreviousOwners'>
+                                    <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start text-dark' style='width: 300px; list-style-type: none;' id='propertyPreviousOwners'>
                                         
                                     </ul>
                                 </div>

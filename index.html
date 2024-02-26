@@ -20,138 +20,27 @@
         <button onclick="closeMDC()">TEST</button>
     </div> -->
     <div class="d-flex vh-100 justify-content-center align-items-start">
-        <div class="w-75 h-75 d-flex flex-column position-relative justify-content-start rounded" id="MDC-display" style="opacity: .9;">
-            <header class="position-absolute bg-dark text-white w-100 d-flex justify-content-between align-items-center px-3 py-1" style="border-bottom: 1px solid rgba(82, 82, 82, 0.342); z-index: 2; overflow: hidden;">
-                <h3 class="m-0 p-0" onclick="home()" style="cursor: pointer;">MOBILE DATA COMPUTER</h3>
-                <span class="material-symbols-outlined" onclick="closeFromGame()" style="cursor: pointer;">
+        <div class="w-75 h-75 d-flex flex-column m-0 p-0 position-relative justify-content-start rounded" id="MDC-display" style="opacity: .9;">
+            <header class="position-absolute text-white w-100 d-flex justify-content-between align-items-center px-3 py-1" style="border-bottom: 1px solid rgba(82, 82, 82, 0.342); z-index: 2; overflow: hidden; background-color: black;">
+                <h3 class="m-0 p-0" onclick="home()" style="cursor: pointer; color: #fff;">MOBILE DATA COMPUTER</h3>
+                <span class="material-symbols-outlined" onclick="closeFromGame()" style="cursor: pointer; color: #b82222;">
                     close
                 </span>
             </header>
-            <div class="d-flex vh-100 position-relative">
-
-                <aside class="bg-dark text-white-50 h-100 c_scroll" style="width: 20%; border-right: 1px solid rgba(82, 82, 82, 0.342);">
+            <div class="d-flex vh-100 position-relative" style="border: 3px solid #000000;">
+                <aside class="text-dark h-100 bg-light c_scroll" style="width: 20%; border-right: 1px solid rgba(82, 82, 82, 0.342);">
                     <ul style="height: 100vh" class="d-flex flex-column justify-content-evenly align-items-start m-0 p-0 mt-3 ps-2 c_scroll" id="aside-list">
                         <li onclick="handlePlayerInput()" id="find_player_button">Find Person</li>
                         <li onclick="handleVehicleInput()" id="find_vehicle_button">Find Vehicle</li>
                         <li onclick="handlePropertyInput()" id="find_property_button">Find Property</li>
                         <li onclick="handleCallsInput()" id="check_calls_button">Calls</li>
-                        <li onclick="handle('employee')" id="check_employees_button">Employees</li>
+                        <!-- <li onclick="handle('employee')" id="check_employees_button">Employees</li> -->
                         <!-- <li onclick="handle('cases')" id="check_cases_button">Cases</li> -->
                         <li onclick="handle('motd')" id="check_motd_button">BOLO</li>
                     </ul>
                 </aside>
-                <section class="position-relative bg-dark h-100 w-100 text-white-50 py-5 px-3 c_scroll" id="content" style='max-height: 100%; min-height: 100%; overflow-y: scroll'>
-                    <div class='d-flex justify-content-start align-items-start'>
-                        <div>
-                            <p class='d-flex justify-content-start align-items-start text-danger' onclick='goToMain()' style='cursor: pointer'>
-                                Go Back
-                                <span class='material-symbols-outlined text-danger'>
-                                    reply
-                                </span>
-                            </p>
-                            <div class='d-flex flex-column align-items-start justify-content-center m-5 my-3' style='gap: 5px;'>
-                                <label for=''>Find Person</label>
-                                <div class='d-flex align-items-center'> 
-                                    <input type='text' placeholder='Type Name' class='form-input form-control' id='player_input'>
-                                    <span class='material-symbols-outlined m-0 p-0' id='find_player_button' onclick='handlePlayerInput()'>
-                                        chevron_right
-                                    </span>
-                                </div>
-                            </div> 
-                            <div class='d-flex flex-column justify-content-start align-items-start'>   
-                                <p id='playerWanted' class='m-0 p-0 text-danger'></p>
-                                <small id='playerWantedText' class='m-0 p-0 text-danger playerWantedText'></small>
-                                <img src='https://p1.hiclipart.com/preview/323/743/633/icon-person-icon-design-symbol-avatar-silhouette-character-cartoon-head-png-clipart.jpg' alt='' width='120px' height='auto' id='playerProfileImg'></img>
-                            </div>
-                            <div class='d-flex flex-column ms-2'>
-                                <p style='font-family: VT323, monospace;' id='playerFullName' class='text-info'></p>
-                                <div class='d-flex justify-content-start align-items-start'>
-                                    <p style='font-family: VT323, monospace;' class='p-0 m-0'>Age: </p> 
-                                    <span class='p-0 m-0 text-info' id='playerAge'></span>
-                                </div>
-                                <p style='font-family: VT323, monospace;'>Sex: <span class='m-0 p-0 text-info' id='playerGender'></span></p>
-                                <p style='font-family: VT323, monospace;'>Phone: <span class='m-0 p-0 text-info' id='playerPhoneNumber'></span></p>
-                                <p style='font-family: VT323, monospace;'>Born At: <span class='m-0 p-0 text-info' id='playerBornDate'></span></p>
-                            </div>
-                        </div>
-
-                        <div class='d-flex flex-column justify-content-end align-items-end w-100'>
-                            <div class='w-50 py-5 px-3'>
-                                <textarea name='note' id='noteForAssign' class='w-100 px-2 py-1 rounded' style='min-height: 90px;outline: none;'></textarea>
-                                <button class='btn btn-outline-info w-100 mt-1 text-start' onclick='addNote("note")'>Add Note</button>
-                                <button class='btn btn-outline-danger w-100 my-1 text-start' onclick='addNote("wanted")'>Put In Wanted</button>
-                                <button class='btn btn-outline-info w-100 text-start' onclick='addNote("removeWanted")'>Remove From Wanted</button>
-                            </div>
-                        </div>
-                        
-                    </div>
-                       
-                    <hr>
-                    <div class='d-flex w-100 position-relative'>
-    
-                        <div class='d-flex flex-column w-50'>
-    
-                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                                <h4 class='mb-3'>Licenses </h4>
-                                <div style='max-height: 120px;' class='c_scroll'>
-                                    <ul class='m-0 p-0 ms-2 d-flex flex-column justify-content-start align-items-start text-info' style='width: 300px; list-style-type: none;' id='playerLicenses'>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-    
-                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                                <h4 class='mb-3'>Records </h4>
-                                <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
-                                    <ul class='m-0 p-0 ms-2 d-flex flex-column text-info justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerRecords'>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-    
-                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                                <h4 class='mb-3'>Tickets </h4>
-                                <div style='max-height: 120px;' id='records-out-div' class='c_scroll'>
-                                    <ul class='m-0 p-0 ms-2 d-flex flex-column text-info justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerTickets'>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-    
-                        </div>
-    
-                        <div class='d-flex flex-column w-50'>
-    
-                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                                <h4 class='mb-3'>Propertys </h4>
-                                <div style='max-height: 120px;' class='c_scroll'>
-                                    <ul class='m-0 p-0 ms-2 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerProperties'>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-    
-                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                                <h4 class='mb-3'>Vehicles </h4>
-                                <div style='max-height: 120px;' class='c_scroll'>
-                                    <ul class='m-0 p-0 ms-4 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: decimal;' id='playerVehicles'>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-    
-                            <div class='d-flex justify-content-start align-items-start flex-column mt-3'>
-                                <h4 class='mb-3'>Notes </h4>
-                                <div style='max-height: 120px;' class='c_scroll'>
-                                    <ul class='m-0 p-0 ms-2 d-flex text-info flex-column justify-content-start align-items-start' style='width: 300px; list-style-type: none;' id='playerNotes'>
-    
-                                    </ul>
-                                </div>
-                            </div>
-    
-                        </div>
-    
-                    </div>
+                <section class="position-relative h-100 w-100 text-dark bg-light py-5 px-3 c_scroll" id="content" style='max-height: 100%; min-height: 100%; overflow-y: scroll;'>
+                    
                 </section>
                 
             </div>
